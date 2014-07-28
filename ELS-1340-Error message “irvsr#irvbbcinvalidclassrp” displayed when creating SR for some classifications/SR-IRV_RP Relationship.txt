@@ -1,0 +1,1 @@
+sanum =  (select top 1 sanum from PLUSPRESPPLAN where classstructureid in (select ancestor from classancestor where  classstructureid = :classstructureid) order by ranking asc)

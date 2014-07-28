@@ -15,3 +15,13 @@ classCount = classAncSet.count()
 if classCount == 1 :
 	errorgroup = "irvsr"
 	errorkey="irvbbcinvalidclass"
+else:
+       mbo.setValue("CLASSSTRUCTUREID",V_CLASSSTRUCTUREID ,MboConstants.NOACCESSCHECK)
+       RPmbo = mbo.getMboSet("IRV_RP").getMbo(0)
+       try:
+            cusPri = RPmbo.getString("IRVCUSTPRI")
+            mbo.setValue("IRVCUSTPRI",cusPri ,MboConstants.NOACCESSCHECK)
+
+       except :
+           errorgroup = "irvsr"
+           errorkey="irvbbcinvalidclassrp"
