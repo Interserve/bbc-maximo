@@ -17,11 +17,29 @@ if classCount == 1 :
 	errorkey="irvbbcinvalidclass"
 else:
        mbo.setValue("CLASSSTRUCTUREID",V_CLASSSTRUCTUREID ,MboConstants.NOACCESSCHECK)
-       RPmbo = mbo.getMboSet("IRV_RP").getMbo(0)
-       try:
+      
+       RPmboSet = mxServer.getMboSet("PLUSPRESPPLAN", userInfo)       
+       RPmboSet.setWhere("CLASSSTRUCTUREID='" +V_CLASSSTRUCTUREID+ "' and status = 'ACTIVE'")
+       RPmboSet.reset()
+       count = RPmboSet.count()
+       if count != 0:
+            RPmbo = RPmboSet.getMbo(0)
             cusPri = RPmbo.getString("IRVCUSTPRI")
+	    sanum = RPmbo.getString("SANUM")
             mbo.setValue("IRVCUSTPRI",cusPri ,MboConstants.NOACCESSCHECK)
+	    
+       else:
 
-       except :
-           errorgroup = "irvsr"
-           errorkey="irvbbcinvalidclassrp"
+             RPmboSet = mbo.getMboSet("IRV_RP")     
+             RPmboSet.setOrderBy("ranking")
+             RPmboSet.reset()
+             RPmbo = RPmboSet.getMbo(0)
+             try:
+                   cusPri = RPmbo.getString("IRVCUSTPRI")
+	           sanum = RPmbo.getString("SANUM")
+                   mbo.setValue("IRVCUSTPRI",cusPri ,MboConstants.NOACCESSCHECK)
+	          
+             except :
+           
+	           errorgroup = "irvsr"
+	           errorkey="irvbbcinvalidclassrp"

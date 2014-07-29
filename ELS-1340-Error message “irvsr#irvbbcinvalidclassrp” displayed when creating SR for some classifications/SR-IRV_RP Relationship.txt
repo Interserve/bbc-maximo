@@ -1,1 +1,1 @@
-sanum =  (select top 1 sanum from PLUSPRESPPLAN where classstructureid in (select ancestor from classancestor where  classstructureid = :classstructureid) order by ranking asc)
+(classstructureid = :classstructureid or exists (select 1 from classancestor where ancestor=plusprespplan.classstructureid and classancestor.classstructureid=:classstructureid)) and status = 'ACTIVE'
