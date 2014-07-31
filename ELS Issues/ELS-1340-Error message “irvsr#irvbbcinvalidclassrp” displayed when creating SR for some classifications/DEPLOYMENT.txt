@@ -1,0 +1,33 @@
+--------------------------------------------------------------------------------------
+ELS-1340 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+SR-IRV_RP Relationship.txt
+IRVSRCLASS.py
+BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140728145139.zip
+
+--------------------------------------------------------------------------------------
+Deploy Relationships
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Database Configuration Application.
+3. Open the SR object.
+4. Change the relationship IRV_RP to the text contained in SR-IRV_RP Relationship.txt
+
+--------------------------------------------------------------------------------------
+Deploy Automation Scripts
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Automation Script Application.
+3. Open the IRVSRCLASS script.
+4. Change the script to the to the text contained in IRVSRCLASS.py
+
+--------------------------------------------------------------------------------------
+Deploy Maximo Messages
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140728145139.zip package
+4. Deploy BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140728145139.zip package
