@@ -1,0 +1,33 @@
+--------------------------------------------------------------------------------------
+ELS-1342 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131555.zip
+BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131250.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Actions
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131555.zip package
+4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131555.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Workflow
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131250.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140731131250.zip package
+5. Go To the Workflow Designer Application.
+6. Select the latest revision of the SUBWOPO.
+7. Enable the SUBWOPO.
+8. Select the latest revision of the SUBESTRE.
+9. Enable the SUBESTRE.
+10. Open the latest revision of MAINWOWF workflow.
+11. From the select action menu click  "Resynchronize an Active Workflow Process".
+
