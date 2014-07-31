@@ -1,0 +1,16 @@
+--------------------------------------------------------------------------------------
+ELS-1177 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+IRV_JP2WO Validation.txt
+
+--------------------------------------------------------------------------------------
+Deploy Cron Task
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Domains Application.
+3. Open the IRV_JP2WO object.
+4. Replace the "Validation Where Clause" with the text from IRV_JP2WO Validation.txt
+5. Click Save. 

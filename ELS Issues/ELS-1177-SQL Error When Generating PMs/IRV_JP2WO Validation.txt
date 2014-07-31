@@ -1,0 +1,1 @@
+pluscrevnum = (select max(pluscrevnum) from jobplan where jpnum = :jpnum and  status = 'ACTIVE' ) and  jpnum=:jpnum and ((orgid=:orgid and siteid=:siteid) or (orgid=:orgid and siteid is null) or (orgid is null and siteid=:siteid) or (orgid is null and siteid is null))
