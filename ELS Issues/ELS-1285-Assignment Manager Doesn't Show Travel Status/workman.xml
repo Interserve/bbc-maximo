@@ -15,7 +15,7 @@
 							<tablecol applink="wotrack" dataattribute="wogroup" id="assign_col_1" inputmode="readonly" label="Work Order" menutype="hyperlink">
 								<textbox id="assign_col_1_1" inputmode="readonly" lookup="workorder"/>
 							</tablecol>
-							<tablecol dataattribute="WORKORDER.STATUS" id="1407091748675" inputmode="readonly" label="Work Order Status"/>
+							<tablecol dataattribute="WORKORDER.STATUS" id="1407091748675" inputmode="readonly" label="Work Order Status" lookup="VALUELIST"/>
 							<tablecol dataattribute="taskid" id="assign_col_2" inputmode="readonly"/>
 							<tablecol dataattribute="description" id="assign_col_2_1" inputmode="readonly"/>
 							<tablecol dataattribute="laborcode" id="assign_col_3" inputmode="readonly"/>
