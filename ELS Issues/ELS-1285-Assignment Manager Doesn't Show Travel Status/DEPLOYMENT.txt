@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------------
+ELS-1285 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+workman.xml
+
+--------------------------------------------------------------------------------------
+Deploy Cron Task
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Application Designer Application.
+3. Open the WORKMAN object.
+4. Import workman.xml 
+5. Save record. 
+
+

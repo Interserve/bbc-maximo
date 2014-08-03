@@ -1,0 +1,1 @@
+Added work order status to assignment Manager. 
