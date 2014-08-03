@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------------
+ELS-1201 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211835.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211451.zip
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211451.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211451.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Maximo Messages
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211835.zip package
+4. Deploy BBC_MAXMES_BBC-SQL-D01_BBCMAXDEV_dbo_20140803211835.zip package
