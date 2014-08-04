@@ -24,7 +24,7 @@ Active? Checked
 7. Check ESCIRV_P3SLA and click ok.
 
 --------------------------------------------------------------------------------------
-Deploy Cron Task
+Deploy Escalation 
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Escalation Application.
