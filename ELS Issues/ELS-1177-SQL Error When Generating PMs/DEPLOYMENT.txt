@@ -17,6 +17,18 @@ Add Flag/pm-update.csv15001-20001.xml
 Add Flag/pm-update.csv20001-20190.xml
 
 --------------------------------------------------------------------------------------
+Deploy Organisation Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the External Systems Application.
+3. Open the UK object.
+4. From the Select Action menu click "PM OPtions"
+5. Check the flag "Automatic PM WO generation".
+6. Clear the "WO Generation Where Clause" textbox.
+7. Enter "Alun.Lloyd@interserve.com" in the E-mail Address Notification textbox.
+8. Save the record. 
+
+--------------------------------------------------------------------------------------
 Deploy XML Changes
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
@@ -45,7 +57,7 @@ Deploy Cron Task
 4. Create a new row with the following parameters:
 
 Cron Task Instance Name:  WOGEN
-Schedule: 1M,0,0,1,5,*,*,*,*,*
+Schedule: 1M,0,0,1,6,*,*,*,*,*
 Run as User: MAXADMIN
 Active? Checked
 
