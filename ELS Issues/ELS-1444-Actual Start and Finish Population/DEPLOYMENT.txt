@@ -1,0 +1,20 @@
+--------------------------------------------------------------------------------------
+ELS-1444 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+
+IRVSRS.py
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Automation Scripts
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Automation Script Application.
+3. Open the IRVSRS script.
+4. Change the script to the to the text contained in IRVSRS.py
+
+
