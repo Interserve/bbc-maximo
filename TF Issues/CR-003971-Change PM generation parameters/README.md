@@ -1,1 +1,1 @@
-Error with crossover domain, bringing back all JP's instead of the latest ACTIVE revision. 
+Change the num of days generation to 35 and schedule everyday at 1:00am
