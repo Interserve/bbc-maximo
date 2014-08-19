@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------------------
+CR-003971-Change PM generation parameters -  Deployment Instructions
+--------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------
+Deploy Organisation Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the External Systems Application.
+3. Open the UK object.
+4. From the Select Action menu click "PM OPtions"
+5. Change the value of "Generate WOs Due on the Current Date Plus This Number of Days" to: 35
+6. Save the record. 
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Cron Task
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Cron Task Setup Application.
+3. Open the PMWoGenCronTask object.
+4.Change the following Cron Task Instance Name:  WOGEN
+
+Schedule: 1d,0,0,1,*,*,*,*,*,*
+Run as User: MAXADMIN
+Active? Checked
+
+5. Save Record.
+6. From the select action menu click "Reload Request"
+7. Check WOGEN and click ok.
