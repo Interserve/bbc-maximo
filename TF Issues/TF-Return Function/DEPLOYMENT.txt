@@ -14,24 +14,24 @@ Deploy Automation Scripts
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170324.zip package
-4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170324.zip package
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105604.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105604.zippackage
 
 --------------------------------------------------------------------------------------
 Deploy Actions
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170648.zip package
-4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170648.zip package
+3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105745.zip package
+4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105745.zip package
 
 --------------------------------------------------------------------------------------
 Deploy Work Flow
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170324.zip package
-4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140804170324.zip package
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105942.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105942.zip package
 5. Select the latest revision of the SUBWORETUR.
 6. Enable the SUBWORETUR.
 7. Open the latest revision of MAINWOWF workflow.
