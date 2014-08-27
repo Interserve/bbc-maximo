@@ -4,34 +4,33 @@ TF-Return Function -  Deployment Instructions
 
 Supporting Files:
 
-BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105745.zip
-BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105604.zip
-BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105942.zip
-
+BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20140827105954.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20140827111124.zip
+BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20140827110250.zip
 
 --------------------------------------------------------------------------------------
 Deploy Automation Scripts
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105604.zip package
-4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105604.zippackage
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20140827111124.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20140827111124.zip package
 
 --------------------------------------------------------------------------------------
 Deploy Actions
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105745.zip package
-4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105745.zip package
+3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20140827105954.zip package
+4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20140827105954.zip package
 
 --------------------------------------------------------------------------------------
 Deploy Work Flow
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105942.zip package
-4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXDEV_dbo_20140821105942.zip package
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20140827110250.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20140827110250.zip package
 5. Select the latest revision of the SUBWORETUR.
 6. Enable the SUBWORETUR.
 7. Open the latest revision of MAINWOWF workflow.
