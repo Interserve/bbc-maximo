@@ -1,0 +1,3 @@
+update pocost set gldebitacct = (select gldebitacct from poline where pocost.polineid = poline.polineid) where pocost.gldebitacct is null
+update invoicecost set gldebitacct=(select gldebitacct from poline l,invoiceline i where l.ponum=i.ponum and l.polinenum=i.polinenum and l.revisionnum=i.porevisionnum and i.invoicenum=invoicecost.invoicenum and i.invoicelinenum=invoicecost.invoicelinenum);
+update INVOICETRANS set gldebitacct = (select gldebitacct from poline pol,invoiceline il where pol.ponum=il.ponum and pol.polinenum=il.polinenum and pol.revisionnum=il.porevisionnum and il.invoicenum=INVOICETRANS.invoicenum and il.invoicelinenum=INVOICETRANS.invoicelinenum);

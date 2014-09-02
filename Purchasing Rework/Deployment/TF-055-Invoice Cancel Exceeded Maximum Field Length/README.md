@@ -1,0 +1,1 @@
+Change the maximum field length of VENDORINVOICENUM  to 50 from 12

@@ -1,0 +1,14 @@
+--------------------------------------------------------------------------------------
+TF-027-GLDEBITACCT Not Populated for Debit Invoices -  Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+update gldebitacct.sql
+
+
+--------------------------------------------------------------------------------------
+Deploy GL Debit Account Changes	
+--------------------------------------------------------------------------------------
+1. Login to the Maximo database with admin privileges 
+2. Run the gldebitacct.sql script
+

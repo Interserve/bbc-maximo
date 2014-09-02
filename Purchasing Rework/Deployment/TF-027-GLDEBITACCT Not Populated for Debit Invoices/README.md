@@ -1,0 +1,1 @@
+GLDEBITACCT was not populated in the POCOST table for legacy records; deployment package updates the POCOST table and associated INVOICE tables. No functionality to be changed, already fixed in prior updates.

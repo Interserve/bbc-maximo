@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------------
+TF-055-Invoice Cancel Exceeded Maximum Field Length -  Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20140828113442.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Database Configuration Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20140828113442.zip package
+4. Deploy BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20140828113442.zip package
+5. Go to Database Configuration application.
+6. Turn admin mode on for the server.
+7. Apply configuration settings to the database.
+8. Turn admin mode off for the server.
