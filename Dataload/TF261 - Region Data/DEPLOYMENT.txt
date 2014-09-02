@@ -1,0 +1,15 @@
+--------------------------------------------------------------------------------------
+TF-120 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DOMAINS_BBC-SQL-D01_BBCMAXDEV_dbo_20140819140801.zip
+
+--------------------------------------------------------------------------------------
+Deploy Domains
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140902160753.zip package
+4. Deploy BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140902160753.zip package
