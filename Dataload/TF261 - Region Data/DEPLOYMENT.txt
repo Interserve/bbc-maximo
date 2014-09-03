@@ -1,15 +1,44 @@
 --------------------------------------------------------------------------------------
-TF-120 Deployment Instructions
+TF-261 Deployment Instructions
 --------------------------------------------------------------------------------------
 
 Supporting Files:
 
-BBC_DOMAINS_BBC-SQL-D01_BBCMAXDEV_dbo_20140819140801.zip
+BBC_INTOBJ_BBC-SQL-D01_BBCMAXDEV_dbo_20140903094824.zip
+BBC_DOMAINS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903103810.zip
+BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903104642.zip
+LOCATIONCLASS.csv1-6445.xmlv
+--------------------------------------------------------------------------------------
+Deploy Integration Objects
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_INTOBJ_BBC-SQL-D01_BBCMAXDEV_dbo_20140903094824.zip package
+4. Deploy BBC_INTOBJ_BBC-SQL-D01_BBCMAXDEV_dbo_20140903094824.zip package
 
 --------------------------------------------------------------------------------------
 Deploy Domains
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140902160753.zip package
-4. Deploy BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140902160753.zip package
+3. Upload BBC_DOMAINS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903103810.zip package
+4. Deploy BBC_DOMAINS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903103810.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Class Attributes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903104642.zip package
+4. Deploy BBC_CLASS_BBC-SQL-D01_BBCMAXDEV_dbo_20140903104642.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Location Specification Update
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the External Systems Application.
+3. Open the EXTSYS1 external system
+4. From the enterprise services tab select IRV_LOCATIONS
+5. Import the file: LOCATIONCLASS.csv1-6445.xml
+6. Wait for the file to fully import (You can do this using the view JMS queue functionality)
+7. Using the same IRV_LOCATIONS enterprise service import the file: LOCATIONREGIONS.csv1-28513.xml
