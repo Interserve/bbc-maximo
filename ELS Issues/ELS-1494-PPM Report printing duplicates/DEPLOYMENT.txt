@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------------
+ELS-1494 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+
+PPMWOPrint.rptdesign
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Automation Scripts
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Report Administration Application.
+3. Open the PPMWOPrint.rptdesign report.
+4. Import the PPMWOPrint.rptdesign file.
+5. Generate request page and save record.
