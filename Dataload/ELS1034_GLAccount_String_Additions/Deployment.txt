@@ -1,0 +1,86 @@
+--------------------------------------------------------------------------------------
+ELS-1034 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+01_GLAccount_Space_Remove.sql
+02_BBC_1_GLCOMP_UPDATE_230614.csv
+03_BBC_2_GLCOMP_UPDATE_230614.csv
+04_BBC_230614_GLCOMP_COA_Update_1.csv
+BBC_230614_GLCOMP_COA_Update_2.csv
+BBC_230614_GLCOMP_COA_Update_3.csv
+BBC_230614_GLCOMP_COA_Update_4.csv
+BBC_230614_GLCOMP_COA_Update_5.csv
+BBC_230614_GLCOMP_COA_Update_6.csv
+BBC_230614_GLCOMP_COA_Update_7.csv
+BBC_230614_GLCOMP_COA_Update_8.csv
+BBC_230614_GLCOMP_COA_Update_9.csv
+BBC_230614_GLCOMP_COA_Update_10.csv
+BBC_230614_GLCOMP_COA_Update_11.csv
+BBC_230614_GLCOMP_COA_Update_12.csv
+BBC_230614_GLCOMP_COA_Update_13.csv
+BBC_230614_GLCOMP_COA_Update_14.csv
+BBC_230614_GLCOMP_COA_Update_15.csv
+BBC_230614_GLCOMP_COA_Update_16.csv
+BBC_230614_GLCOMP_COA_Update_17.csv
+
+--------------------------------------------------------------------------------------
+Deployment of files
+--------------------------------------------------------------------------------------
+
+
+PART 1
+01. Access the backend database for Maximo PRE PROD or Maximo LIVE (depending on the Maximo environment being worked on) via SQL Server Management Studio.
+02. Ensure the correct database is selected.
+03. Copy and paste the simple SQL statement from the 01_GLAccount_Space_Remove.sql file.
+04. Execute the simple statement - this is required to remove unwanted spaces in some of the gl component values.
+
+PART 2
+01. Login to Maximo as an admin user.
+02. Go To the External Systems Application.
+03. Open the DATALOAD object.
+04. Go To the Enterprise Services Tab.
+05. Select IRV_MXGLCOMP.
+06. Import file 02_BBC_1_GLCOMP_UPDATE_230614.csv
+07. Import file 03_BBC_2_GLCOMP_UPDATE_230614.csv
+
+PART 3
+01. Select IRV_MXCHRTOFACCTS.
+02. When importing this batch of files ensure 'File Based Error Management' is ticked for each file.
+03. Import file 04_BBC_230614_GLCOMP_COA_Update_1.csv.
+04. Check Message Re-Processing to ensure all records successfully processed.
+05. Import file 05_BBC_230614_GLCOMP_COA_Update_2.csv.
+06. Check Message Re-Processing to ensure all records successfully processed.
+07. Import file 06_BBC_230614_GLCOMP_COA_Update_3.csv.
+08. Check Message Re-Processing to ensure all records successfully processed.
+09. Import file 07_BBC_230614_GLCOMP_COA_Update_4.csv.
+10. Check Message Re-Processing to ensure all records successfully processed.
+11. Import file 08_BBC_230614_GLCOMP_COA_Update_5.csv.
+12. Check Message Re-Processing to ensure all records successfully processed.
+13. Import file 09_BBC_230614_GLCOMP_COA_Update_6.csv.
+14. Check Message Re-Processing to ensure all records successfully processed.
+15. Import file 10_BBC_230614_GLCOMP_COA_Update_7.csv.
+16. Check Message Re-Processing to ensure all records successfully processed.
+17. Import file 11_BBC_230614_GLCOMP_COA_Update_8.csv.
+18. Check Message Re-Processing to ensure all records successfully processed.
+19. Import file 12_BBC_230614_GLCOMP_COA_Update_9.csv.
+20. Check Message Re-Processing to ensure all records successfully processed.
+21. Import file 13_BBC_230614_GLCOMP_COA_Update_10.csv.
+22. Check Message Re-Processing to ensure all records successfully processed.
+23. Import file 14_BBC_230614_GLCOMP_COA_Update_11.csv.
+24. Check Message Re-Processing to ensure all records successfully processed.
+25. Import file 15_BBC_230614_GLCOMP_COA_Update_12.csv.
+26. Check Message Re-Processing to ensure all records successfully processed.
+27. Import file 16_BBC_230614_GLCOMP_COA_Update_13.csv.
+28. Check Message Re-Processing to ensure all records successfully processed.
+29. Import file 17_BBC_230614_GLCOMP_COA_Update_14.csv.
+30. Check Message Re-Processing to ensure all records successfully processed.
+31. Import file 18_BBC_230614_GLCOMP_COA_Update_15.csv.
+32. Check Message Re-Processing to ensure all records successfully processed.
+33. Import file 19_BBC_230614_GLCOMP_COA_Update_16.csv.
+34. Check Message Re-Processing to ensure all records successfully processed.
+35. Import file 20_BBC_230614_GLCOMP_COA_Update_17.csv.
+36. Check Message Re-Processing to ensure all records successfully processed.
+
+PART 4
+If all records successfully processed then this completes the fix deployment for this issue.

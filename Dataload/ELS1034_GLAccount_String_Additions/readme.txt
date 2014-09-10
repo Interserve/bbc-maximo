@@ -1,0 +1,1 @@
+Additional GL Account strings required for correct booking of costs

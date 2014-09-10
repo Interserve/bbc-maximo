@@ -1,0 +1,1 @@
+update chartofaccounts set glaccount = replace(glaccount,' ','') where glaccount like '% %'

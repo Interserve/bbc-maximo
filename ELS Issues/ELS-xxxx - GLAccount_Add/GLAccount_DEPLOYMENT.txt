@@ -1,0 +1,65 @@
+--------------------------------------------------------------------------------------
+GLAccount Additions Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+
+BBC_1_GLCOMP_UPDATE_230614.csv
+BBC_2_GLCOMP_UPDATE_230614.csv
+BBC_230614_GLCOMP_COA_Update_1.csv
+BBC_230614_GLCOMP_COA_Update_2.csv
+BBC_230614_GLCOMP_COA_Update_3.csv
+BBC_230614_GLCOMP_COA_Update_4.csv
+BBC_230614_GLCOMP_COA_Update_5.csv
+BBC_230614_GLCOMP_COA_Update_6.csv
+BBC_230614_GLCOMP_COA_Update_7.csv
+BBC_230614_GLCOMP_COA_Update_8.csv
+BBC_230614_GLCOMP_COA_Update_9.csv
+BBC_230614_GLCOMP_COA_Update_10.csv
+BBC_230614_GLCOMP_COA_Update_11.csv
+BBC_230614_GLCOMP_COA_Update_12.csv
+BBC_230614_GLCOMP_COA_Update_13.csv
+BBC_230614_GLCOMP_COA_Update_14.csv
+BBC_230614_GLCOMP_COA_Update_15.csv
+BBC_230614_GLCOMP_COA_Update_16.csv
+BBC_230614_GLCOMP_COA_Update_17.csv
+
+
+
+--------------------------------------------------------------------------------------
+Part1 - Run Update Against Back End Database
+--------------------------------------------------------------------------------------
+1. Login to SQL Management Studio
+2. Ensure you are accessing the correct database for the relevant BBC Maximo environment
+3. Copy an paste this short SQL update script onto a new query page
+	update chartofaccounts set glaccount = replace(glaccount,' ','') where glaccount like '% %';
+4. Exit SQL Management Studio
+
+--------------------------------------------------------------------------------------
+Part2 - Run Update Against Back End Database
+--------------------------------------------------------------------------------------
+1. Login to the correct BBC Maximo environment
+2. Go to Integration
+					External Systems
+3. Select the IRV_MXGLCOMP Enterprise Systems
+	3a. Import file BBC_1_GLCOMP_UPDATE_230614.csv
+	3b. Import file BBC_2_GLCOMP_UPDATE_230614.csv
+4. Select the IRV_MXCHRTOFACCTS Enterprise Systems
+	4a. Import file BBC_230614_GLCOMP_COA_Update_1.csv
+	4b. Import file BBC_230614_GLCOMP_COA_Update_2.csv
+	4c. Import file BBC_230614_GLCOMP_COA_Update_3.csv
+	4d. Import file BBC_230614_GLCOMP_COA_Update_4.csv
+	4e. Import file BBC_230614_GLCOMP_COA_Update_5.csv
+	4f. Import file BBC_230614_GLCOMP_COA_Update_6.csv
+	4g. Import file BBC_230614_GLCOMP_COA_Update_7.csv
+	4h. Import file BBC_230614_GLCOMP_COA_Update_8.csv
+	4i. Import file BBC_230614_GLCOMP_COA_Update_9.csv
+	4j. Import file BBC_230614_GLCOMP_COA_Update_10.csv
+	4k. Import file BBC_230614_GLCOMP_COA_Update_11.csv
+	4l. Import file BBC_230614_GLCOMP_COA_Update_12.csv
+	4m. Import file BBC_230614_GLCOMP_COA_Update_13.csv
+	4n. Import file BBC_230614_GLCOMP_COA_Update_14.csv
+	4o. Import file BBC_230614_GLCOMP_COA_Update_15.csv
+	4p. Import file BBC_230614_GLCOMP_COA_Update_16.csv
+	4q. Import file BBC_230614_GLCOMP_COA_Update_17.csv
