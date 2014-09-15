@@ -1,0 +1,13 @@
+--------------------------------------------------------------------------------------
+AXO-100 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+Update GL accouns Location-RW   Type-PPM.sql
+
+--------------------------------------------------------------------------------------
+Deploy SQL Script
+--------------------------------------------------------------------------------------
+1. Login to the maximo database as an admin user.
+2. Run the sql text in "Update GL accouns Location-RW   Type-PPM.sql"

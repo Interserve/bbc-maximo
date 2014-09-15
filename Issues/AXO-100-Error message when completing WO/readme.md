@@ -1,0 +1,1 @@
+SQL written to populate the missing locations gl account component.
