@@ -1,0 +1,69 @@
+--------------------------------------------------------------------------------------
+AXO-169 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151320.zip
+BBC_REL_BBC-SQL-D01_BBCMAXSIT_dbo_20140915152624.zip
+BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20140915154047.zip
+BBC_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151604.zip
+
+plusploc.xml
+pluspsr.xml
+pluspwo.xml
+
+
+--------------------------------------------------------------------------------------
+Deploy Domains
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151320.zip package
+4. Deploy BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151320.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Relationships
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_REL_BBC-SQL-D01_BBCMAXSIT_dbo_20140915152624.zip package
+4. Deploy BBC_REL_BBC-SQL-D01_BBCMAXSIT_dbo_20140915152624.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Database Config
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20140915154047.zip package
+4. Deploy BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20140915154047.zip package
+5. Go to Database Configuration application.
+6. Apply configuration settings to the database (admin mode not needed/non-structural changes).
+
+
+--------------------------------------------------------------------------------------
+Deploy Class Attributes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151604.zip package
+4. Deploy BBC_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20140915151604.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Application XML
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Application Designer Application.
+3. Open the plusploc object.
+4. Import plusploc.xml 
+5. Save record. 
+6. Open the pluspsr object.
+7. Import pluspsr.xml 
+8. Save record. 
+9. Open the pluspwo object.
+10. Import pluspwo.xml 
+11. Save record. 
+
+
+
