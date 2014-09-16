@@ -1,0 +1,2044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
+    <simple-property-list name="includeResource">
+        <value>wotrack</value>
+    </simple-property-list>
+    <property name="units">cm</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("c:/temp/wotrack.log");
+
+isChange = false;
+isActivity = false;
+isWotrack = false;
+
+if (!params["paramdelimiter"].value)
+{
+	params["paramdelimiter"] = "||";
+}
+if (!params["paramstring"].value &amp;&amp; params["appname"].value)
+{
+	params["paramstring"] = "appHierarchy="+params["appname"];
+}
+if (params["paramstring"].value)
+{
+ 	if (MXReportUtil.isInAppHierarchy("CHANGE", params["paramstring"], params["paramdelimiter"]))
+	{
+		isChange = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("ACTIVITY", params["paramstring"], params["paramdelimiter"]))
+	{
+		isActivity = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("WOTRACK", params["paramstring"], params["paramdelimiter"]))
+	{
+		isWotrack = true;
+	}
+}]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="where" id="735">
+            <property name="hidden">false</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="appname" id="240">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="241">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="242">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="location" id="1474">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="irv_servprio" id="1631">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="startdate" id="1471">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="enddate" id="1472">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="status" id="1479">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="failurecode" id="1476">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="problemcode" id="1477">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="overdue" id="1478">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="frequency" id="1633">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="frequnit" id="1632">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="vendor" id="1475">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="jpnum" id="1630">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="assetnum" id="1782">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="worktype" id="1785">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="irv_checstatus" id="1784">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="region" id="1804">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="loccrit" id="1805">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">location</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">jpnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">pmnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">targcompdate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">assetnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">assetdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">assetld</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">manufacturer</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">irv_model</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">irv_criticality</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">craft</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">vendor</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">vendesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">actstart</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">actfinish</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">sumlbhrs</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">irv_checstatus</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">frequency</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">frequnit</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">failurecode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">problemcode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">overdue</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">builddesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">locdesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">region</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">wonum</property>
+                    <text-property name="displayName">Work Order No</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">location</property>
+                    <text-property name="displayName">Location</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">jpnum</property>
+                    <text-property name="displayName">Job Plan</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">pmnum</property>
+                    <text-property name="displayName">PM Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">targcompdate</property>
+                    <text-property name="displayName">Target Finish</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetnum</property>
+                    <text-property name="displayName">Asset Bar Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetdesc</property>
+                    <text-property name="displayName">Asset Description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">assetld</property>
+                    <text-property name="displayName">Asset Long Description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">manufacturer</property>
+                    <text-property name="displayName">Manufacturer</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">irv_model</property>
+                    <text-property name="displayName">Model</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">irv_criticality</property>
+                    <text-property name="displayName">Asset Criticality</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">craft</property>
+                    <text-property name="displayName">Craft</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vendor</property>
+                    <text-property name="displayName">Vendor Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vendesc</property>
+                    <text-property name="displayName">Vendor</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actstart</property>
+                    <text-property name="displayName">Start Date/ Time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">actfinish</property>
+                    <text-property name="displayName">Finish Date/ Time</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">sumlbhrs</property>
+                    <text-property name="displayName">Normal Hours</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                    <text-property name="displayName">Status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">irv_checstatus</property>
+                    <text-property name="displayName">Statutory Documentation</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">frequency</property>
+                    <text-property name="displayName">Frequency</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">frequnit</property>
+                    <text-property name="displayName">Frequency Unit</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">failurecode</property>
+                    <text-property name="displayName">Failure Class</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">problemcode</property>
+                    <text-property name="displayName">Failure Code</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">overdue</property>
+                    <text-property name="displayName">Overdue</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">builddesc</property>
+                    <text-property name="displayName">Buildiong Description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">locdesc</property>
+                    <text-property name="displayName">Location Description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">region</property>
+                    <text-property name="displayName">Region</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">location</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">jpnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">pmnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">targcompdate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">assetnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">assetdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">assetld</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">manufacturer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">irv_model</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">irv_criticality</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">craft</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">vendor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">vendesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">actstart</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">actfinish</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">sumlbhrs</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">irv_checstatus</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">frequency</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">frequnit</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">failurecode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">problemcode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">overdue</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">builddesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">locdesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">region</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+sqlText =  "SELECT" 
++ "  workorder.wonum as wonum, "
++ "  workorder.location as location, "
++ " locationspec.alnvalue as region, "
++ "  locations.description as locdesc, "
++ " (select l1.description from locancestor,locations l1 where locancestor.ancestor = l1.location and  locancestor.location  = workorder.location and l1.IRVLOCLEVEL = 'BUILDING') builddesc, "
++ "  workorder.jpnum as jpnum, "
++ "  workorder.pmnum as pmnum, "
++ "  workorder.targcompdate as targcompdate, "
++ "  asset.assetnum as assetnum, "
++ "  asset.description as assetdesc, "
++ "  asld.ldtext as assetld, "
++ "  asset.manufacturer as manufacturer, "
++ "  asset.irv_model as irv_model, "
++ "  asset.irv_criticality as irv_criticality, "
++ "  assignment.craft as craft, "
++ "  workorder.vendor as vendor, "
++ "  companies.name as vendesc, "
++ "  workorder.actstart as actstart, "
++ "  workorder.actfinish as actfinish, "
++ "  assignment.sumlbhrs as sumlbhrs, "
++ "  workorder.status as status, "
++ "  workorder.irv_checstatus as irv_checstatus, "
++ "  pm.frequency as frequency, "
++ "  pm.frequnit as frequnit, "
++ "  workorder.failurecode as failurecode, "
++ "  workorder.problemcode as problemcode, "
++ "  DATEDIFF(DAY,workorder.targcompdate,GETDATE()) AS overdue "
++ "FROM "
++ "  workorder "
++ "left outer join locations on locations.location = workorder.location "
++ "LEFT OUTER JOIN asset "
++ "ON "
++ "  asset.assetnum = workorder.assetnum "
++ "AND asset.siteid =workorder.siteid "
++ "LEFT OUTER JOIN longdescription asld "
++ "ON "
++ "  asld.ldownertable = 'ASSET' "
++ "AND asld.ldownercol = 'DESCRIPTION' "
++ "AND asld.ldkey      = asset.assetid "
++ "LEFT OUTER JOIN "
++ "  (SELECT DISTINCT(craft), wonum, siteid, SUM(laborhrs) sumlbhrs "
++ "    FROM "
++ "      assignment "
++ "    GROUP BY craft, wonum, siteid) AS assignment "
++ "ON "
++ "  assignment.wonum   =workorder.wonum "
++ "AND assignment.siteid=workorder.siteid "
++ "LEFT OUTER JOIN companies "
++ "ON "
++ "  companies.company = workorder.vendor "
++ "AND companies.orgid = workorder.orgid "
++ "LEFT OUTER JOIN pm "
++ "ON "
++ "  pm.pmnum    = workorder.pmnum "
++ "AND pm.siteid = workorder.siteid "
++ " left outer join locationspec on locationspec.location = locations.location and  assetattrid = 'IRVREG'  "
++ "WHERE " 
++params["where"].value;
+
+
+if(params["startdate"].value) {
+sqlText += " and " + MXReportSqlFormat.createParamWhereClause("CONVERT(VARCHAR(8), workorder.targcompdate, 3)", ">="+ params["startdate"]); 
+}
+if(params["enddate"].value) {
+sqlText += " and " + MXReportSqlFormat.createParamWhereClause("CONVERT(VARCHAR(8), workorder.targcompdate, 3)", "<="+ params["startdate"]); 
+} 
+
+if(params["overdue"].value) {
+sqlText += " and " + MXReportSqlFormat.createParamWhereClause("DATEDIFF(day,workorder.targcompdate,GETDATE())","<"+  params["overdue"]);
+}
+
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+	
+row["wonum"] = maximoDataSet.getString("wonum");
+row["location"] = maximoDataSet.getString("location");
+row["region"] = maximoDataSet.getString("region");
+row["locdesc"] = maximoDataSet.getString("locdesc");
+row["builddesc"] = maximoDataSet.getString("builddesc");
+row["jpnum"] = maximoDataSet.getString("jpnum");
+row["pmnum"] = maximoDataSet.getString("pmnum");
+row["targcompdate"] = maximoDataSet.getTimestamp("targcompdate");
+row["assetnum"] = maximoDataSet.getString("assetnum");
+row["assetdesc"] = maximoDataSet.getString("assetdesc");
+row["assetld"] = maximoDataSet.getString("assetld");
+row["manufacturer"] = maximoDataSet.getString("manufacturer");
+row["irv_model"] = maximoDataSet.getString("irv_model");
+row["irv_criticality"] = maximoDataSet.getString("irv_criticality");
+row["craft"] = maximoDataSet.getString("craft");
+row["vendor"] = maximoDataSet.getString("vendor");
+row["vendesc"] = maximoDataSet.getString("vendesc");
+row["actstart"] = maximoDataSet.getTimestamp("actstart");
+row["actfinish"] = maximoDataSet.getTimestamp("actfinish");
+row["sumlbhrs"] = maximoDataSet.getString("sumlbhrs");
+row["status"] = maximoDataSet.getString("status");
+row["irv_checstatus"] = maximoDataSet.getString("irv_checstatus");
+row["frequency"] = maximoDataSet.getString("frequency");
+row["frequnit"] = maximoDataSet.getString("frequnit");
+row["failurecode"] = maximoDataSet.getString("failurecode");
+row["problemcode"] = maximoDataSet.getString("problemcode");
+row["overdue"] = maximoDataSet.getString("overdue");
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="NewSimpleMasterPage" id="606">
+            <property name="type">a4</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">5mm</property>
+            <property name="leftMargin">5mm</property>
+            <property name="bottomMargin">5mm</property>
+            <property name="rightMargin">5mm</property>
+            <property name="showHeaderOnFirst">true</property>
+            <property name="showFooterOnLast">true</property>
+            <property name="headerHeight">22mm</property>
+            <property name="footerHeight">22mm</property>
+            <page-header>
+                <grid id="999">
+                    <property name="width">100%</property>
+                    <column id="1000"/>
+                    <column id="1001"/>
+                    <column id="1002"/>
+                    <row id="1003">
+                        <cell id="1004">
+                            <text id="1192">
+                                <property name="fontSize">16pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">#00ADE8</property>
+                                <property name="paddingTop">10pt</property>
+                                <property name="paddingLeft">10pt</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[PPM Work Order Analysis]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1005"/>
+                        <cell id="1006">
+                            <property name="textAlign">right</property>
+                            <image id="1007">
+                                <property name="source">embed</property>
+                                <property name="imageName">Interservelogo.gif</property>
+                            </image>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="1205">
+                    <property name="marginTop">20pt</property>
+                    <property name="width">100%</property>
+                    <column id="1206"/>
+                    <column id="1207"/>
+                    <column id="1208"/>
+                    <row id="1209">
+                        <cell id="1210">
+                            <text id="1213">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1211"/>
+                        <cell id="1212">
+                            <property name="textAlign">right</property>
+                            <grid id="1194">
+                                <property name="textAlign">right</property>
+                                <property name="width">20mm</property>
+                                <column id="1195"/>
+                                <column id="1196"/>
+                                <column id="1197"/>
+                                <row id="1198">
+                                    <cell id="1199">
+                                        <auto-text id="1200">
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="1201">
+                                        <text id="1202">
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="1203">
+                                        <auto-text id="1204">
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="1634">
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">wonum</property>
+                    <text-property name="displayName">Work Order No</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["wonum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">location</property>
+                    <text-property name="displayName">Location</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["location"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">jpnum</property>
+                    <text-property name="displayName">Job Plan</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["jpnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">pmnum</property>
+                    <text-property name="displayName">PM Code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["pmnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">targcompdate</property>
+                    <text-property name="displayName">Target Finish</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["targcompdate"]</expression>
+                    <property name="dataType">date-time</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">assetnum</property>
+                    <text-property name="displayName">Asset Bar Code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["assetnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">assetdesc</property>
+                    <text-property name="displayName">Asset Description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["assetdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">assetld</property>
+                    <text-property name="displayName">Asset Long Description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["assetld"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">manufacturer</property>
+                    <text-property name="displayName">Manufacturer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["manufacturer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">irv_model</property>
+                    <text-property name="displayName">Model</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["irv_model"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">irv_criticality</property>
+                    <text-property name="displayName">Asset Criticality</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["irv_criticality"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">craft</property>
+                    <text-property name="displayName">Craft</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["craft"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendor</property>
+                    <text-property name="displayName">Vendor Code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendesc</property>
+                    <text-property name="displayName">Vendor</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["vendesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">actstart</property>
+                    <text-property name="displayName">Start Date/ Time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actstart"]</expression>
+                    <property name="dataType">date-time</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">actfinish</property>
+                    <text-property name="displayName">Finish Date/ Time</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["actfinish"]</expression>
+                    <property name="dataType">date-time</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">sumlbhrs</property>
+                    <text-property name="displayName">Normal Hours</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["sumlbhrs"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">Status</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">irv_checstatus</property>
+                    <text-property name="displayName">Statutory Documentation</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["irv_checstatus"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">frequency</property>
+                    <text-property name="displayName">Frequency</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["frequency"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">frequnit</property>
+                    <text-property name="displayName">Frequency Unit</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["frequnit"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">failurecode</property>
+                    <text-property name="displayName">Failure Class</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["failurecode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">problemcode</property>
+                    <text-property name="displayName">Failure Code</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["problemcode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">overdue</property>
+                    <text-property name="displayName">Overdue</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["overdue"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">builddesc</property>
+                    <text-property name="displayName">Buildiong Description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["builddesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">locdesc</property>
+                    <text-property name="displayName">Location Description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["locdesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">region</property>
+                    <text-property name="displayName">Region</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["region"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="1758"/>
+            <column id="1789"/>
+            <column id="1759"/>
+            <column id="1795"/>
+            <column id="1760"/>
+            <column id="1801"/>
+            <column id="1761"/>
+            <column id="1762"/>
+            <column id="1763"/>
+            <column id="1764"/>
+            <column id="1765"/>
+            <column id="1768"/>
+            <column id="1769"/>
+            <column id="1770"/>
+            <column id="1771"/>
+            <column id="1772"/>
+            <column id="1773"/>
+            <column id="1774"/>
+            <column id="1775"/>
+            <column id="1776"/>
+            <column id="1777"/>
+            <column id="1778"/>
+            <column id="1779"/>
+            <column id="1780"/>
+            <column id="1781"/>
+            <header>
+                <row id="1635">
+                    <cell id="1636">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1637">
+                            <text-property name="text">Work Order No</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1786">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1790">
+                            <text-property name="text">Building Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1638">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1639">
+                            <text-property name="text">Location</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1792">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1796">
+                            <text-property name="text">Location Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1640">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1641">
+                            <text-property name="text">Job Plan</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1798">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1802">
+                            <text-property name="text">Region</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1642">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1643">
+                            <text-property name="text">PM Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1644">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1645">
+                            <text-property name="text">Target Finish</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1646">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1647">
+                            <text-property name="text">Asset Bar Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1648">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1649">
+                            <text-property name="text">Asset Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1650">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1651">
+                            <text-property name="text">Asset Long Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1656">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1657">
+                            <text-property name="text">Asset Criticality</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1658">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1659">
+                            <text-property name="text">Craft</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1660">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1661">
+                            <text-property name="text">Vendor Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1662">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1663">
+                            <text-property name="text">Vendor</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1664">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1665">
+                            <text-property name="text">Start Date/ Time</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1666">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1667">
+                            <text-property name="text">Finish Date/ Time</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1668">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1669">
+                            <text-property name="text">Normal Hours</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1670">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1671">
+                            <text-property name="text">Status</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1672">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1673">
+                            <text-property name="text">Statutory Documentation</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1674">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1675">
+                            <text-property name="text">Frequency</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1676">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1677">
+                            <text-property name="text">Frequency Unit</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1678">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1679">
+                            <text-property name="text">Failure Class</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1680">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1681">
+                            <text-property name="text">Failure Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1682">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="1683">
+                            <text-property name="text">Overdue</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1684">
+                    <cell id="1685">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1686">
+                            <property name="resultSetColumn">wonum</property>
+                        </data>
+                    </cell>
+                    <cell id="1787">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1791">
+                            <property name="resultSetColumn">builddesc</property>
+                        </data>
+                    </cell>
+                    <cell id="1687">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1688">
+                            <property name="resultSetColumn">location</property>
+                        </data>
+                    </cell>
+                    <cell id="1793">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1797">
+                            <property name="resultSetColumn">locdesc</property>
+                        </data>
+                    </cell>
+                    <cell id="1689">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1690">
+                            <property name="resultSetColumn">jpnum</property>
+                        </data>
+                    </cell>
+                    <cell id="1799">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1803">
+                            <property name="resultSetColumn">region</property>
+                        </data>
+                    </cell>
+                    <cell id="1691">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1692">
+                            <property name="resultSetColumn">pmnum</property>
+                        </data>
+                    </cell>
+                    <cell id="1693">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1694">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">dd/MM/yyyy hh:mm:ss</property>
+                            </structure>
+                            <property name="resultSetColumn">targcompdate</property>
+                        </data>
+                    </cell>
+                    <cell id="1695">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1696">
+                            <property name="resultSetColumn">assetnum</property>
+                        </data>
+                    </cell>
+                    <cell id="1697">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1698">
+                            <property name="resultSetColumn">assetdesc</property>
+                        </data>
+                    </cell>
+                    <cell id="1699">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1700">
+                            <property name="resultSetColumn">assetld</property>
+                        </data>
+                    </cell>
+                    <cell id="1705">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1706">
+                            <property name="resultSetColumn">irv_criticality</property>
+                        </data>
+                    </cell>
+                    <cell id="1707">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1708">
+                            <property name="resultSetColumn">craft</property>
+                        </data>
+                    </cell>
+                    <cell id="1709">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1710">
+                            <property name="resultSetColumn">vendor</property>
+                        </data>
+                    </cell>
+                    <cell id="1711">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1712">
+                            <property name="resultSetColumn">vendesc</property>
+                        </data>
+                    </cell>
+                    <cell id="1713">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1714">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">dd/MM/yyyy hh:mm:ss</property>
+                            </structure>
+                            <property name="resultSetColumn">actstart</property>
+                        </data>
+                    </cell>
+                    <cell id="1715">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1716">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">dd/MM/yyyy hh:mm:ss</property>
+                            </structure>
+                            <property name="resultSetColumn">actfinish</property>
+                        </data>
+                    </cell>
+                    <cell id="1717">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1718">
+                            <property name="resultSetColumn">sumlbhrs</property>
+                        </data>
+                    </cell>
+                    <cell id="1719">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1720">
+                            <property name="resultSetColumn">status</property>
+                        </data>
+                    </cell>
+                    <cell id="1721">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1722">
+                            <property name="resultSetColumn">irv_checstatus</property>
+                        </data>
+                    </cell>
+                    <cell id="1723">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1724">
+                            <property name="resultSetColumn">frequency</property>
+                        </data>
+                    </cell>
+                    <cell id="1725">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1726">
+                            <property name="resultSetColumn">frequnit</property>
+                        </data>
+                    </cell>
+                    <cell id="1727">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1728">
+                            <property name="resultSetColumn">failurecode</property>
+                        </data>
+                    </cell>
+                    <cell id="1729">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1730">
+                            <property name="resultSetColumn">problemcode</property>
+                        </data>
+                    </cell>
+                    <cell id="1731">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="1732">
+                            <property name="resultSetColumn">overdue</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1733">
+                    <cell id="1734"/>
+                    <cell id="1788"/>
+                    <cell id="1735"/>
+                    <cell id="1794"/>
+                    <cell id="1736"/>
+                    <cell id="1800"/>
+                    <cell id="1737"/>
+                    <cell id="1738"/>
+                    <cell id="1739"/>
+                    <cell id="1740"/>
+                    <cell id="1741"/>
+                    <cell id="1744"/>
+                    <cell id="1745"/>
+                    <cell id="1746"/>
+                    <cell id="1747"/>
+                    <cell id="1748"/>
+                    <cell id="1749"/>
+                    <cell id="1750"/>
+                    <cell id="1751"/>
+                    <cell id="1752"/>
+                    <cell id="1753"/>
+                    <cell id="1754"/>
+                    <cell id="1755"/>
+                    <cell id="1756"/>
+                    <cell id="1757"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">Interservelogo.gif</property>
+            <property name="data">
+                R0lGODlhoAA8AHAAACwAAAAAoAA8AIf///8Ard57hIQQrebWzt7e7/ecveZzreZKra3mEO/mEGvmEK3m
+                ECmtEO+tEGutEK2tEClzjOZKjK3mEM7mEErmEIzmEAitEM6tEEqtEIytEAhCxebWvRmcvRm95uZ7jKV7
+                72t73jrvlJx7nDp77617xWt73hB7nBDva5xaWu8Q3nsQ3jEQnHsQnDFaa1oQa94Qa1paKd5aKVoQKd4Q
+                KVpaaxkQa5wQaxlaKZxaKRkQKZwQKRl7Ws4x3lox3hAxnFoxnBDOlJx7zq3Oa5xaSloQSt4QSlpaCN5a
+                CFoQCN4QCFpaShkQSpwQShlaCJxaCBkQCJwQCBne795alHuclIxCreYZlOYAre97a2N7c4SllK1K7+ac
+                ta1z7+ala61alFqla4zW5q2c5q3WvUqcvUqcvXvWvXvmlO/mlGvmQu/mQmvmQq3mQinmlCl7ra2tQu+t
+                QmutQq2tQimtlO+tlGutlClaa5zma+/ma2vmaymta++ta2utayl7UpxKjObmlM7mlErmQs7mQkrmQozm
+                QgjmlAitQs6tQkqtQoytQgitlM6tlEqtlAhaSpzma87ma0rmawita86ta0qtawjeteYI7+bW7xmc7xkI
+                nKUIzq29vd61ta17Wu8x3nsxa94xa1ox3jF7Kd57KVoxKd4xKVoxnHsxnDF7axkxa5wxaxl7KZx7KRkx
+                KZwxKRl7SloxSt4xSlp7CN57CFoxCN4xCFp7ShkxSpwxShl7CJx7CBkxCJwxCBn3vRm9vRnvva17zu/W
+                70qc70qc73vW73spxeb37+8Ixeac5vcInMUI761jzub35q295q33vUq9vUq9vXv3vXuElGMAteYp7+b3
+                7xm97xkpnKUpzq1a73ta7zparTpaxXta7xBarRBaa84Q71oQ7xAQrVoQrRBa71pazjpajDpaxVpazhBa
+                jBBaSs4QzloQzhAQjFoQjBD3xeZK771Kzr1K75xKzpzOva3370q970q973v373spnMUp762c79aEjIR7
+                c5z3//8AlOb3/+YI/wABCBxIsKDBgwgTKlzIsKHDhxAjSiRYQNoVYgUmPiTABYsAAhpDihxJsmCBKyhR
+                SstYcuA/AvuyZNknIAvIljhz6hxI7EqAAD5RbujXkkCWmgKQ7qOys6nTkBuCAg165djIYjGT0kyaVMvT
+                r2AZnpQ6FagyohM3yaQ586iAmDfDyp0r8BjQuz6nXmEJMeY+v223xqVLOGxPvFKrPix2NGZjx1SKFZ48
+                t8AAvJh/NZSydqZfAVT+UR4tt19UzEE1K2T8FvDfwaRjLyZAQAqBYpIVHruc+KdVhP2OBo65SbbxvjJl
+                1pwyU8sm2AL79ewdgG/Bv4FnQj/O3aBarjUd0/90nGWTlIK/yKIcYPClVs8fu8tP2NjzTCqBW68tPtAD
+                1Z/+HJQFc9jZpJAHxygzwIIXiTYfYfgV6JpwfrGVBVMCFYAYMQK2ddQ8BxWwgTF63QUUhw/S1c97roWH
+                nXhvZcGFQP4FhdBwMw7Uz25U5dWbP9alCNZLmxRJxQdvcbWWVlslZSAAHniQkFHh5VYAMaj9hBJqewkp
+                WzEEbFJTfW3FGF9DtAGwoxVb9uYjZih6edw/83wwIVv8GVSAB3yJ1s8AV1iU5X9BDaCMnA9y5NlneRL0
+                izHrSSnQYYn1ZugvxwSJqHz/FBChcLk5WhZKLLlZqDKZbqrqQJpQQcUmaBH/1I+bKAKKWQDKaLrqrgid
+                NCpQdZU1wG+87lqAMgEYo5qeJhY60JUb6FqskAWk549eyxbEG16HTjvtsXkJCpQxvarn7bTpISYscCIu
+                eKi05z7oAaWDbkDQBpIatBtCdVKB3XnxjnZMm/USVMx6xGygzC8bTHdFQpzFFGrAhR1zrZsBEJPvs3ql
+                1CZ7CdmJIcWFefCTlnjZW66WGCuEn1ckEzbWryonlK6tbrq8D8wSbRczQ29OVQC8wZp6l0JagDZRmj9D
+                ZPGoxhA90GkYXwEyQnbmGNE+BDjYdEPpFir11IOa6HIWPB808UAEnBni2gVJxjRFCRVDdEbHbPxQp7Em
+                /9QPZmPzBGigbl59kJ2NAlAMFRn5VcDEbxVZZEFqHbWdFmAmlZsHlw170M3ZTr0nSgL9srDpv/1i+i98
+                HRDpQv/YFWjoCw2OGqTAJuTvBwZ/kAUA+CVH0DxjJsfXJvsIRFPiEjsm2cFSWhxn6QNkRIw0ofc01hVS
+                KpOSxtRbLWnDBfypWFO2Jmv1xw+HvE+eVNqUvFHlDaQcUiMzxldMBLlFpQDn2cDVBEiR6mSIdANhUwDs
+                ApTyAQBQhhNI+6B0BbTUqG844c22AoCzALhMaQNRy1/Yxr+BcMFtA/nAyAAgE57BpCYAmMfvHlgzzhGE
+                GNMDSs0GFgArFGM3FuSgQf+IgZaEEcQntCOJr1IyFXFFsCD4adQ/ZpKnKWYhVPiBzpOUNxOCRK4g55Pg
+                s66QLQgSBCi0m1UEq3XAjZlRJzNTD14UgqS0AaAmEzthXKiAQvcMBnlblBgYDRengVlnA0DJF6T0JpAG
+                Oool3jskUDBIEgYS7ldW+6DWBKI5gmghCyASCBds4jXgCWAeYdJEnWIShoHQBGADEeJAugUALGHqGJia
+                zrIuoytAZWuCPcGlMA/DyJHwsGo/+eAKASDIEApAEyZEIQv38QEuuMqa1oSmQHwXJKE8ayBWaxgOE5aw
+                ZQXzIN6j5QMHsqAqjNOdDSNWS35RNmclJGmbZKEASon/vFACj5QEmcIyD/IXWApkcKE7SRUYAqhi+idO
+                xejWSab3lbDhLksKGeUyY2IdtcRFjwXp4kJi4o6CyO4K6gTARRgaxgJOMFUUPMBc6IUZQT2RIP6yIx4J
+                ohZNOIiPg2HMQA3iL7jhZVkTZcgiEeITlhQSpXNBJKFQgzQQuvKKPH2mMwdTAGoyxHfQWWKXAKBQlkqL
+                GP74zdUGltKn2E5dgZIl1vaRz5jwMwutFIha8ioQoTIEPwbtT1BUltTa7YWSAEinQGq4Url0sGpnsyNH
+                eZoFbTJzi5xM3kizENiBHJMoB7tpQZZ6EP+wpwDEGhhFnXIwTGJGtALhYz6TUspR//oTpC6RCUP+AreB
+                0LNLf5tgQhpaLvZE61n+EO5TlqilywjKRu7b6Ay3OhAqRAM2ljtInmISWL7MaoES5N5BZHrQsR6EVAvl
+                mHkdlRP/wDUxsDXlJruK1RDaBC2f7Fr/BJA4xeXJdwYd2g2BRBSgkJcitCTtQbB0jOnNiox6kmcl8UIi
+                qVz0g5LNQkcrO5CkwcZfAvAOXwSwB4P2I1ve+w2WlAuAX+TrCkCy2RU2IGEsebAgx8WJAZ7LJZ/E13eJ
+                E6l9+TrKMPSNfo1iDEGQZJ1i1CyxY5WdOk9yw8MixGLrhfIVDEAQ/+gkPciELkL8tUyZhKofYrKsWvgD
+                JgBMsf8mmyhGP4ph1cuW9FnkmtpYl8g6ss6YIMRdWZA05JNM9eMkSRSJMqRRT6DE9y+86199RVk/gbTt
+                inRmSdLEI5O+vYYiwh3A9KjGQZSUMtAH+dtqa+mjwSFWJKS2VAAYPaXkAMw9z8wNVmaSmzfLRGsrWpSM
+                DFYTLoTqJIQVr3r18uSxYCQhxGjr0NSVaJFMpyyMhi9CqPQvAGjCLfxVXHJq4qCkvaWUMGnLChkjnOlC
+                eWFQLYh7fTK97WUSIQeQsGel8uQMUti1N26Pmwvyj4IX4x9WEk2nXKKJ/ro5TGFVeCnJqowDSOvEymBk
+                Af5x6FdDCV7HcnFT4jiAPqsJtY4GLpbHKRMQADs=
+            </property>
+        </structure>
+    </list-property>
+</report>
