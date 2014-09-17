@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------------
+AXO-168 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_ROLE_BBC-SQL-D01_BBCMAXSIT_dbo_20140917160438.zip
+
+--------------------------------------------------------------------------------------
+Deploy Domains
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_ROLE_BBC-SQL-D01_BBCMAXSIT_dbo_20140917160438.zip package
+4. Deploy BBC_ROLE_BBC-SQL-D01_BBCMAXSIT_dbo_20140917160438.zip package
+
+
+
