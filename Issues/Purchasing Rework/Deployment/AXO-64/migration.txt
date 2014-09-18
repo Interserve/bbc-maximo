@@ -1,0 +1,73 @@
+------------------------------------------------------
+Domains Added: 
+------------------------------------------------------
+domainid in ('IRV_POTYPE','IRV_INVISSUE','IRV_PIREASON')
+
+------------------------------------------------------
+Database:
+------------------------------------------------------
+objectname in ('PERSONGROUP','INVOICE','PO')
+
+------------------------------------------------------
+Workflows: 
+------------------------------------------------------
+processname in ('MAINPOWF','TOPICWF','SUBINVWF','POAPPR')
+
+------------------------------------------------------
+Automation Scripts: 
+------------------------------------------------------
+autoscript in ('IRV_SETAPPRGRP','IRV_INVVAL','IRV_SETINVAPPRGRP')
+
+launchpointname  in ('IRV_SETAPPRGRP','IRV_INVVAL','IRV_SETINVAPPRGRP')
+
+------------------------------------------------------
+Actions/Action Groups: 
+------------------------------------------------------
+ACTION in ('IRV_SETAPPRGRP','IRV_INVVAL','IRV_SETINVAPPRGRP','IRV_CANREQ','IRV_ISS_CANREQ','IRV_ISSTYPE_INV','IRV_ISSTPYE_PO','IRV_ISS_CREDWAIT','IRV_CREDWAIT','IRV_ISS_TOLAPPRGRP','IRV_TOLAPPRGRP','IRV_POREACTIVE','IRV_POPROJECT','IRV_POOTHER','IRV_POCATERING','IRV_POAGENCY','IRV_POPPM','IRV_POSCHEDULED')
+member in ('IRV_ISS_CANREQ','IRV_ISS_CREDWAIT','IRV_ISS_TOLAPPRGRP')
+
+------------------------------------------------------
+Roles: 
+------------------------------------------------------
+maxrole in ('POAPPR','IRV_TOLAPP','IRV_INVISS')
+
+------------------------------------------------------
+Person Groups Added: 
+------------------------------------------------------
+persongroup in ('PO','RECEIPT','INVOICE','HAREA05','HAREA1','HAREA5','HAREA10','HAREA50','HAREA100','HANOLIM','HAEST5','HAEST10','HAEST50','HAEST100','HAOTH10','HAOTH50','HAOTH100','HACAT1','HACAT25','HACAT50','HACAT100','HAAGY1','HAAGY10','HAAGY50','HAAGY100','HAPPM25','HAPPM50','HAPPM100','HASCH5','HASCH10','HASCH25','HASCH50','HASCH100','PIAGENCY','PICAT','PIESTREQ','PIOTHER','PIPPM','PIREACT','PISCHED')
+
+------------------------------------------------------
+Application Screens Modified: 
+------------------------------------------------------
+app in ('PERSONGR','PO','INVOICE')
+
+
+------------------------------------------------------
+Relationships:
+------------------------------------------------------
+name = 'IRV_REASONCODE'
+
+
+
+
+
+------------------------------------------------------
+Start Center Added: 
+------------------------------------------------------
+description = 'Purchasing'
+
+
+------------------------------------------------------
+Queries Added: 
+------------------------------------------------------
+clausename in ('INVASSIGNISSUE','POASSIGNAPPR')
+
+
+
+
+
+
+
+
+
+
