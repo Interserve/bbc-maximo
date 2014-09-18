@@ -755,14 +755,14 @@ sqlText =  "SELECT"
 
 
 if(params["startdate"].value) {
-sqlText += " and " + MXReportSqlFormat.createParamWhereClause("CONVERT(VARCHAR(8), workorder.targcompdate, 3)", ">="+ params["startdate"]); 
+sqlText += " and workorder.TARGCOMPDATE >= CONVERT(DATE,'" + params["startdate"]+ "',3) "; 
 }
 if(params["enddate"].value) {
-sqlText += " and " + MXReportSqlFormat.createParamWhereClause("CONVERT(VARCHAR(8), workorder.targcompdate, 3)", "<="+ params["startdate"]); 
+sqlText += " and workorder.TARGCOMPDATE <= CONVERT(DATE,'" + params["enddate"]+ "',3) "; 
 } 
 
 if(params["overdue"].value) {
-sqlText += " and " + MXReportSqlFormat.createParamWhereClause("DATEDIFF(day,workorder.targcompdate,GETDATE())","<"+  params["overdue"]);
+sqlText += " and " + MXReportSqlFormat.createParamWhereClause("DATEDIFF(day,workorder.targcompdate,GETDATE())","<="+  params["overdue"]);
 }
 
 
