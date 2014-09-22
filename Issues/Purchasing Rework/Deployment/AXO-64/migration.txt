@@ -60,7 +60,7 @@ description = 'Purchasing'
 ------------------------------------------------------
 Queries Added: 
 ------------------------------------------------------
-clausename in ('INVASSIGNISSUE','POASSIGNAPPR')
+clausename in ('INVASSIGNISSUE','POASSIGNAPPR','POORIGINATOR')
 
 
 
