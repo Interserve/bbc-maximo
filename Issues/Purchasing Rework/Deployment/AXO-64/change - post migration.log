@@ -4,6 +4,8 @@ Database Objects Added:
 POLINE.LINETYPE Default Value: SERVICE
 POLINE.TAX1CODE Default Value: SR
 INVOICE Relationship WFINSTANCE
+PO Relationship WFLASTMEMO
+INVOICE Relationship WFLASTMEMO
 ------------------------------------------------------
 Actions Added:
 ------------------------------------------------------
@@ -24,7 +26,6 @@ invoice.xml
 ------------------------------------------------------
 Automation Script Changes:
 ------------------------------------------------------
-
 IRV_IRVMANASS
 AUTOPOHEAD
 ATUOWOPO
@@ -33,3 +34,8 @@ ATUOWOPO
 Domain Added:
 ------------------------------------------------------
 IRV_PIREASON
+
+------------------------------------------------------
+Query Added:
+------------------------------------------------------
+MYAPPRPOS

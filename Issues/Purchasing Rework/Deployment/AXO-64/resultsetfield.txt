@@ -1,0 +1,10 @@
+
+insert into resultsetcols
+(app,attribute,maintable,resultsetcolsid)
+values
+('PO','WFLASTMEMO.MEMO','PO',-1);
+
+insert into resultsetcols
+(app,attribute,maintable,resultsetcolsid)
+values
+('INVOICE','WFLASTMEMO.MEMO','INVOICE',-2);
