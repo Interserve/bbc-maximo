@@ -27,6 +27,7 @@ invoice.xml
 Automation Script Changes:
 ------------------------------------------------------
 IRV_IRVMANASS
+IRV_CREDVAL
 AUTOPOHEAD
 ATUOWOPO
 
@@ -39,3 +40,13 @@ IRV_PIREASON
 Query Added:
 ------------------------------------------------------
 MYAPPRPOS
+
+------------------------------------------------------
+Actions Added:
+------------------------------------------------------
+
+IRV_CREDREV
+IRV_CREDG
+IRV_CREDREVG
+IRV_CREDPRO
+IRV_CREDPRO1
