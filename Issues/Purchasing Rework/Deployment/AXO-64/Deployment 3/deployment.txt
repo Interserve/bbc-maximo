@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+AXO-64 Deployment 3 Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015124737.zip
+BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015130528.zip
+BBC_PERSON_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131727.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141015132427.zip
+BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131225.zip
+
+--------------------------------------------------------------------------------------
+Deploy Actions Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015124737.zip package
+4. Deploy BBC_ACTIONS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015124737.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Application Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Turn admin mode on for the server.
+4. Upload BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015130528.zip package
+5. Deploy BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141015130528.zip package
+6. Turn admin mode off for the server.
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141015132427.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141015132427.zip package
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Person Group Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_PERSON_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131727.zip package
+4. Deploy BBC_PERSON_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131727.zip package
+
+
+
+--------------------------------------------------------------------------------------
+Deploy Work Flow Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131225.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141015131225.zip package
+5. Select the latest revision of the POAPPR workflow.
+6. Enable the POAPPR.
+7. Open the latest revision of MAINPOWF workflow.
+8. Enable the MAINPOWF workflow.
+9. Activate the MAINPOWF workflow.
+10. From the select action menu click  "Resynchronize an Active Workflow Process".
+
+
+
+

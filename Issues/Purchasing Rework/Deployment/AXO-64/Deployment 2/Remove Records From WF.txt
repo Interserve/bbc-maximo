@@ -1,0 +1,22 @@
+--remove po's from workflow---
+update wfinstance set active = 0  where ownertable = 'PO' and active = 1;
+update wfassignment set assignstatus = 'INACTIVE' where assignstatus =  'ACTIVE' and  ownertable = 'PO';
+update wfcallstack set active = 0 where  processname in ('MAINPOWF','POAPPR') and active = 1;
+
+--remove invoices from workflow---
+
+update wfinstance set active = 0  where  ownertable = 'INVOICE' and active = 1;
+update wfassignment set assignstatus = 'INACTIVE' where assignstatus =  'ACTIVE' and  ownertable = 'INVOICE' ;
+update wfcallstack set active = 0 where processname in ('TOPICWF','MAINCREWF','SUBINVWF') and active = 1 ;
+
+
+--Change Invoice Status---
+
+1. Open Invoice application.
+2. Enter the following into the advanced seach where clause:
+
+status not in ('APPR','CANCEL','EXPORTED','ENTERED')
+
+3. Change status of all records to entered. With the Memo "P2P Rework".
+4. Activate IRV_MANINVISS escalation and let it run one time.
+5. Deactivate IRV_MANINVISS.
