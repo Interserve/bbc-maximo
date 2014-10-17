@@ -1,0 +1,15 @@
+============================================
+Application Definitions
+============================================
+
+PLUSPWO - Assignment Manager
+
+Added New Fields to searchmore dialog:
+
+Name: Documentation Required
+Attribute: IRV_DOCREQ
+
+
+Name: Documentation Check Status
+Attribute: IRV_CHECSTATUS
+Lookup: VALUELIST

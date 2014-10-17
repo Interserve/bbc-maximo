@@ -1,0 +1,33 @@
+============================================
+Application Definitions
+============================================
+
+WORKMAN - Assignment Manager
+
+Added New Field to searchmore dialog:
+
+Name: Region
+Attribute: WORKORDER.IRVREGSPEC.ALNVALUE
+Lookup: VALUELIST
+
+
+============================================
+QUERIES 
+============================================
+
+Added QUERUES:
+
+PPMWAITASGN-ALL - PPM Work Orders Awaiting Assignment - All
+PPMWAITASGN-LONDON - PPM Work Orders Awaiting Assignment - London
+PPMWAITASGN-MIDLANDS - PPM Work Orders Awaiting Assignment - Midlands
+PPMWAITASGN-NORTH - PPM Work Orders Awaiting Assignment - North
+PPMWAITASGN-SCOTNI - PPM Work Orders Awaiting Assignment - Scotland & NI   
+PPMWAITASGN-SWALES - PPM Work Orders Awaiting Assignment - South & Wales
+PPMWAITASGN-I25 - PPM Work Orders Awaiting Assignment - Inside M25
+PPMWAITASGN-O25 - PPM Work Orders Awaiting Assignment - Outside M25
+
+============================================
+Automation Scripts
+============================================
+
+IRVASSMAN - Assignment Manager Change WO Status to DISPATCH
