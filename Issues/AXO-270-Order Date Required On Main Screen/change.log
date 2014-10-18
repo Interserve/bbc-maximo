@@ -1,0 +1,12 @@
+============================================
+Application Screens
+============================================
+
+Modified: 
+
+Screen: PO
+
+Added Order Date to List Screen
+
+Attribute: ORDERDATE
+Lookup:DATELOOKUP

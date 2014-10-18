@@ -1,0 +1,27 @@
+--------------------------------------------------------------------------------------
+AXO-37 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134440.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134158.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Domain Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134440.zip package
+4. Deploy BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134440.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134158.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141018134158.zip package
+
+
