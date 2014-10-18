@@ -1,0 +1,41 @@
+--------------------------------------------------------------------------------------
+AXO-37 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141018132039.zip
+AUDITOBJECT.xml
+AUDITATTRIBUTES.xml
+
+
+--------------------------------------------------------------------------------------
+Deploy Integration Services Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141018132039.zip package
+4. Deploy BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141018132039.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Audit Objects
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the External Systems Application.
+3. Open the EXTSYS1 Object.
+4. Import the AUDITOBJECT.xml file with the External System MXOBJECTCFGInterface.
+5. Wait for the record to load.
+6. Got to the Database Configuration Application.
+7. Apply Database Changes.
+
+
+--------------------------------------------------------------------------------------
+Deploy Audit Attributes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the External Systems Application.
+3. Open the EXTSYS1 Object.
+4. Import the AUDITATTRIBUTES.xml file with the External System MXOBJECTCFGInterface.
+5. Wait for the record to load.
+6. Got to the Database Configuration Application.
+7. Apply Database Changes.
