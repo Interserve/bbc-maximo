@@ -1,0 +1,15 @@
+============================================
+Escalations
+============================================
+
+Added:
+IRVSRRESNOT
+
+Duplicated IRVSRRES - Removed Status change. 
+Removed escalation notification check from sql statement.
+
+Modified:
+
+IRVSRRES
+
+Removed Communication
