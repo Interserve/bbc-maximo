@@ -1,0 +1,58 @@
+--------------------------------------------------------------------------------------
+AXO-297 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095731.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095436.zip
+workman.xml
+REACTIVE Work Mobile Query.txt
+PPM Work Mobile Query.txt
+
+
+--------------------------------------------------------------------------------------
+Deploy Query Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095731.zip package
+4. Deploy BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095731.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Auto Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095436.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141023095436.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Application Screen Changes
+--------------------------------------------------------------------------------------
+
+1. Login to Maximo as an admin user.
+2. Go To the Application Designer Application.
+3. Open the WORKMAN object.
+4. Import workman.xml 
+5. Save record. 
+
+
+--------------------------------------------------------------------------------------
+Deploy Mobile Query Changes
+--------------------------------------------------------------------------------------
+
+1. Login to Maximo as an admin user.
+2. Go To the Administration - > Mobile Data Manager Application.
+3. Open the TYPE5A object.
+4. Click on Mobile Work Management in the applications table 
+5. Click on WORKORDER in the types of data table 
+6. Expand the Reactive Work in the queries table.
+7. Copy the text from REACTIVE Work Mobile Query.txt and paste it into the Clause field.
+8. Expand the Planned Work in the queries table.
+9. Copy the text from PPM Work Mobile Query.txt and paste it into the Clause field.
+10. Save record. 
+
+
+
+

@@ -1,0 +1,3 @@
+status in ('DISPATCH','TRAVEL','ONSITE','START','ONHOLD','WOCOMP')
+And worktype='RW'
+And wonum in (Select wonum from assignment where status = 'ASSIGNED' and laborcode in (Select laborcode from labor where personid=:personid and IRV_CONTMETHOD='MOBILE'))

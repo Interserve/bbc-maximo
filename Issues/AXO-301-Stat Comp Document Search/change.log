@@ -13,3 +13,16 @@ Attribute: IRV_DOCREQ
 Name: Documentation Check Status
 Attribute: IRV_CHECSTATUS
 Lookup: VALUELIST
+
+
+WORKMAN - Assignment Manager
+
+Added New Fields to searchmore dialog:
+
+Name: Documentation Required
+Attribute: WORKORDER.IRV_DOCREQ
+
+
+Name: Documentation Check Status
+Attribute: WORKORDER.IRV_CHECSTATUS
+Lookup: VALUELIST

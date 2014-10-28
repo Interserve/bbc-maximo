@@ -1,0 +1,7 @@
+wonum in (Select  top 10 wonum from workorder 
+Where 
+schedstart <= dateadd(day,2,getdate())
+and
+ Status in ('DISPATCH','TRAVEL','ONSITE','START','ONHOLD','WOCOMP')
+ and worktype='PPM'
+ and (exists (select 1 from dbo.assignment where (laborcode =   (select laborcode from labor where personid =  :personid) ) and (exists (select 1 from workorder yy where ((yy.istask = 1 and yy.parent = workorder.wonum ) or (istask = 0 and yy.wonum = workorder.wonum)) and assignment.wonum = yy.wonum and yy.siteid = workorder.siteid) and siteid = workorder.siteid))) order by schedstart asc)

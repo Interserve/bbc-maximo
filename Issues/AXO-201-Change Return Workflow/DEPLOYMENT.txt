@@ -1,0 +1,20 @@
+--------------------------------------------------------------------------------------
+AXO-201 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141020115947.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Work Flow
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141020115947.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20141020115947.zip package
+5. Select the latest revision of the SUBWORETUR.
+6. Enable the SUBWORETUR.
+7. Open the latest revision of MAINWOWF workflow.
+8. From the select action menu click  "Resynchronize an Active Workflow Process".
