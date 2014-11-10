@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------------
+AXO-324 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20141110113532.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Domain Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20141110113532.zip package
+4. Deploy BBC_DATACONF_BBC-SQL-D01_BBCMAXDEV_dbo_20141110113532.zip package
+5. Go To the Database Configuration Application
+6. Apply Configurations Changes 
+
+
+
