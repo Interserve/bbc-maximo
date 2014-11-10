@@ -4,14 +4,21 @@ AXO-45 Deployment Instructions
 
 Supporting Files:
 
-BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141018151757.zip
-
+BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141106131920.zip
 
 --------------------------------------------------------------------------------------
-Deploy Integration Services Changes
+Delete Escalation
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Escalation Application.
+3. Open IRVSRRES.
+4. Deactive and delete escalation. 
+
+--------------------------------------------------------------------------------------
+Deploy Escalation Changes
 --------------------------------------------------------------------------------------
 1. Login to Maximo as an admin user.
 2. Go To the Migration Manager Application.
-3. Upload BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141018151757.zip package
-4. Deploy BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141018151757.zip package
+3. Upload BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141106131920.zip package
+4. Deploy BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20141106131920.zip package
 
