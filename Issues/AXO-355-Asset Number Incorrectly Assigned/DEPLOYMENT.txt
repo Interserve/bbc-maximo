@@ -1,0 +1,17 @@
+--------------------------------------------------------------------------------------
+AXO-355 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20141111121357.zip
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20141111121357.zip package
+4. Deploy IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXDEV_dbo_20141111121357.zip package
+
+
