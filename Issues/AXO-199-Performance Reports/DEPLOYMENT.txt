@@ -1,0 +1,23 @@
+--------------------------------------------------------------------------------------
+AXO-199 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_REPORT_BBC-SQL-D01_BBCMAXSIT_dbo_20140918141549.zip
+
+--------------------------------------------------------------------------------------
+Deploy Domains
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_REPORT_BBC-SQL-D01_BBCMAXSIT_dbo_20140918141549.zip package
+4. Deploy BBC_REPORT_BBC-SQL-D01_BBCMAXSIT_dbo_20140918141549.zip package
+6. Open report administration application
+7. Open irvsrperformance.rptdesign record.
+8. Generate request page. 
+9. Open irvwoperformance.rptdesign record.
+10. Generate request page. 
+
+
+

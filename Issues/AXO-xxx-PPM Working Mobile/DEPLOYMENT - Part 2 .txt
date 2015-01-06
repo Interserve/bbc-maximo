@@ -1,0 +1,20 @@
+--------------------------------------------------------------------------------------
+Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20141203102315.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Database Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20141203102315.zip package
+4. Deploy BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20141203102315.zip package
+5. Go To the Database Configuration application.
+6. Configure the database. 
+
+

@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125522.zip
+IDS_UOM_BBC-SQL-D01_BBCMAXSIT_dbo_20141202123756.zip
+IDS_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124138.zip
+BBC_RELATION_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124742.zip
+IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141202122255.zip
+BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125153.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Integration Objects Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125522.zip package
+4. Deploy BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125522.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Unit Of Measure Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload IDS_UOM_BBC-SQL-D01_BBCMAXSIT_dbo_20141202123756.zip package
+4. Deploy IDS_UOM_BBC-SQL-D01_BBCMAXSIT_dbo_20141202123756.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Classification Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload IDS_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124138.zip package
+4. Deploy IDS_CLASS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124138.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Relationship Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_RELATION_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124742.zip package
+4. Deploy BBC_RELATION_BBC-SQL-D01_BBCMAXSIT_dbo_20141202124742.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141202122255.zip package
+4. Deploy IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20141202122255.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Automation Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Turn on admin mode.
+4. Upload BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125153.zip package
+5. Deploy BBC_APPS_BBC-SQL-D01_BBCMAXSIT_dbo_20141202125153.zip package
+6. Turn off admin mode. 
+

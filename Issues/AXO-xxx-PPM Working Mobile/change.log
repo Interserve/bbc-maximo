@@ -7,27 +7,54 @@ Automation Scripts
 ==============================================
 Added: IDS_JPSPEC
 
+autoscript in ('IDS_JPSPEC')
 
 ==============================================
 UOM
 ==============================================
 Added: 
-DAILY
-WEEKLY
-MONTHLY
-YEARLY
+measureunitid in ('DAILY','WEEKLY','MONTHLY','YEARLY')
 
 ==============================================
 Classifications
 ==============================================
 Added: JOBPLAN
 
+classificationid = 'JOBPLAN'
+
 ==============================================
 Classification Spec
 ==============================================
 Added: FREQ
 
+assetattrid = 'FREQ'
+
+==============================================
+Database Configuration
+==============================================
+Changed:
+JOBPLANSPEC
+
+objectname in ('JOBPLANSPEC')
+ 
+
 ==============================================
 Relationship
 ==============================================
-Added: IDS_JOBPLANFREQ
+Added: IDS_JOBPLANFREQ, IDS_JOBPLAN
+
+name in ('IDS_JOBPLANFREQ', 'IDS_JOBPLAN')
+
+
+==============================================
+Applications
+==============================================
+Modified: PLUSP_WO, WORKMAN
+Added frequency fields.
+
+==============================================
+Object Structures
+==============================================
+
+IDS_UOM
+

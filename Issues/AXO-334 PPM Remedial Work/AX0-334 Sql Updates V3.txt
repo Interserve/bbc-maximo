@@ -1,5 +1,5 @@
 -------------------------------------------------
-PDUS & DISTRIBUTION BOARDS
+--PDUS & DISTRIBUTION BOARDS
 -------------------------------------------------
 
 update pm set description = 'PDU''S & DISTRIBUTION BOARDS' where  description like 'PDU%';
@@ -10,14 +10,14 @@ update pm set jpnum = 'BBCPDB03', FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER =
 
 
 -------------------------------------------------
-LV SWITCH PANEL
+--LV SWITCH PANEL
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'LV SWITCH PANEL') ;
 update pm set FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER = 0 where description like 'LV SWITCH PANEL';
 
 -------------------------------------------------
-CONTROL PANEL
+--CONTROL PANEL
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'CONTROL PANEL') ;
@@ -25,28 +25,28 @@ update pm set FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER = 0 where description
 
 
 -------------------------------------------------
-LOCAL CONTACTORS RELAYS ISOLATORS & TIME SWITCHES
+--LOCAL CONTACTORS RELAYS ISOLATORS & TIME SWITCHES
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'LOCAL CONTACTORS RELAYS ISOLATORS & TIME SWITCHES') ;
 update pm set FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER = 0 where description like 'LOCAL CONTACTORS RELAYS ISOLATORS & TIME SWITCHES';
 
 -------------------------------------------------
-DOMESTIC EXTRACT FAN
+--DOMESTIC EXTRACT FAN
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'DOMESTIC EXTRACT FAN') ;
 update pm set JPNUM = 'BBCEXF02',FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER = 0 where description like 'DOMESTIC EXTRACT FAN';
 
 -------------------------------------------------
-FIRE EXIT DOORS
+--FIRE EXIT DOORS
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'FIRE EXIT DOORS') ;
 update pm set JPNUM = 'BBCFDR03',FREQUENCY = 6, FREQUNIT = 'MONTHS', PMCOUNTER = 0 where description like 'FIRE EXIT DOORS';
 
 -------------------------------------------------
-ELEVATORS (PASSENGER)
+--ELEVATORS (PASSENGER)
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'ELEVATORS (PASSENGER)') and interval in (1); ;
@@ -56,11 +56,9 @@ update pmsequence set interval = 6 where pmnum in (select pmnum from pm where de
 update pm set JPNUM = 'BBCLFT02',FREQUENCY = 1, FREQUNIT = 'MONTHS', PMCOUNTER = 0 where description like 'ELEVATORS (PASSENGER)';
 
 -------------------------------------------------
-ELEVATORS (GOODS)
+--ELEVATORS (GOODS)
 -------------------------------------------------
 
-delete from pmsequence where pmnum in (select pmnum from pm where description like 'ELEVATORS (GOODS)') ;
-update pm set JPNUM = 'BBCLFT06',FREQUENCY = 3, FREQUNIT = 'MONTHS', PMCOUNTER = 0 where description like 'ELEVATORS (GOODS)';
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'ELEVATORS (GOODS)') and interval in (1); ;
 update pmsequence set interval = 1 where pmnum in (select pmnum from pm where description like 'ELEVATORS (GOODS)') and interval in (3);
@@ -71,7 +69,7 @@ update pm set JPNUM = 'BBCLFT06',FREQUENCY = 3, FREQUNIT = 'MONTHS', PMCOUNTER =
 
 
 -------------------------------------------------
-AIR HANDLING UNIT (FCU LPHW HTG & CHW CLG)
+--AIR HANDLING UNIT (FCU LPHW HTG & CHW CLG)
 -------------------------------------------------
 
 update pm set description  = 'AIR HANDLING UNIT (FCU LPHW HTG & CHW CLG)' where description like '%AIR HANDLING UNIT%FCU%';
@@ -82,7 +80,7 @@ update pm set FREQUENCY = 6, FREQUNIT = 'MONTHS' where description like 'AIR HAN
 
 
 -------------------------------------------------
-ELECTRIC SPACE HEATERS (FAN / TUBULAR /OIL RADIATOR)
+--ELECTRIC SPACE HEATERS (FAN / TUBULAR /OIL RADIATOR)
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'ELECTRIC SPACE HEATERS (FAN / TUBULAR /OIL RADIATOR)') ;
@@ -90,7 +88,7 @@ update pm set JPNUM = 'BBCESH02',FREQUENCY = 1, FREQUNIT = 'YEARS', PMCOUNTER = 
 
 
 -------------------------------------------------
-FIRE ALARM TEST
+--FIRE ALARM TEST
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'FIRE ALARM TEST') ;
@@ -98,15 +96,15 @@ update pm set JPNUM = 'BBCFAS05',FREQUENCY = 1, FREQUNIT = 'MONTHS', PMCOUNTER =
 
 
 -------------------------------------------------
-CW WATER LOG
+--CW WATER LOG
 -------------------------------------------------
 
-delete from pmsequence where pmnum in (select pmnum from pm where description like 'CW WATER LOG') ;
-update pm set JPNUM = 'BBCCWL01',FREQUENCY = 1, FREQUNIT = 'MONTHS', PMCOUNTER = 0 where description like 'CW WATER LOG';
+update pmsequence set interval = 4 where pmnum in (select pmnum from pm where description like 'CW WATER LOG') and interval in (52);
+update pm set FREQUENCY = 3, FREQUNIT = 'MONTHS', PMCOUNTER = 0 where description like 'CW WATER LOG';
 
 
 -------------------------------------------------
-UPS UNIT
+--UPS UNIT
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'UPS U%') and interval in (1);
@@ -115,7 +113,7 @@ update pmsequence set interval = 2 where pmnum in (select pmnum from pm where de
 update pm set FREQUENCY = 6, FREQUNIT = 'MONTHS',pmcounter = 0  where description like 'UPS U%';
 
 -------------------------------------------------
-LIGHTNING PROTECTION
+--LIGHTNING PROTECTION
 -------------------------------------------------
 
 delete from pmsequence where pmnum in (select pmnum from pm where description like 'LIGHTNING PROTECTION') ;
