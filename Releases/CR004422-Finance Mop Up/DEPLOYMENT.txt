@@ -1,0 +1,68 @@
+--------------------------------------------------------------------------------------
+CR-004422 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20150126131005.zip
+BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150126140006.zip
+BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150126135038.zip
+BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20150126132010.zip
+poprint.rptdesign
+po.xml
+
+--------------------------------------------------------------------------------------
+Deploy Domains
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20150126131005.zip package
+4. Deploy BBC_DOMAINS_BBC-SQL-D01_BBCMAXSIT_dbo_20150126131005.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Automation Scripts
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150126140006.zip package
+4. Deploy BBC_SCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150126140006.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Queries
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150126135038.zip package
+4. Deploy BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150126135038.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Work Flow
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20150126132010.zip package
+4. Deploy BBC_WF_BBC-SQL-D01_BBCMAXSIT_dbo_20150126132010.zip package
+5. Open the latest revision of MAINPOWF workflow.
+6. Enable Workflow.
+7. Activate Workflow.
+
+--------------------------------------------------------------------------------------
+Deploy Report
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Report Administration Application.
+3. Open the poprint.rptdesign record.
+4. Import poprint.rptdesign report.
+5. Generate request page. 
+6. Save the record. 
+
+
+--------------------------------------------------------------------------------------
+Deploy PO Application Definition
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Application Designer Application.
+3. Open the PO object.
+4. Import po.xml 
+5. Save record. 
