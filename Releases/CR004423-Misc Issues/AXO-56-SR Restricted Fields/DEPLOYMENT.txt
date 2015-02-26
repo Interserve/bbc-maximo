@@ -1,0 +1,29 @@
+--------------------------------------------------------------------------------------
+AXO-56 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212953.zip
+BBC_SECREST_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212645.zip
+
+
+--------------------------------------------------------------------------------------
+Deploy Integration Object Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212953.zip package
+4. Deploy BBC_INTOBJ_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212953.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Security Restriction Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_SECREST_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212645.zip package
+4. Deploy BBC_SECREST_BBC-SQL-D01_BBCMAXSIT_dbo_20150126212645.zip package
+
+
+

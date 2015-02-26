@@ -1,0 +1,2236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
+    <simple-property-list name="includeResource">
+        <value>wotrack</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+//mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("./temp/wotrack.log");
+
+isChange = false;
+isActivity = false;
+isWotrack = false;
+
+if (!params["paramdelimiter"].value)
+{
+	params["paramdelimiter"] = "||";
+}
+if (!params["paramstring"].value &amp;&amp; params["appname"].value)
+{
+	params["paramstring"] = "appHierarchy="+params["appname"];
+}
+if (params["paramstring"].value)
+{
+ 	if (MXReportUtil.isInAppHierarchy("CHANGE", params["paramstring"], params["paramdelimiter"]))
+	{
+		isChange = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("ACTIVITY", params["paramstring"], params["paramdelimiter"]))
+	{
+		isActivity = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("WOTRACK", params["paramstring"], params["paramdelimiter"]))
+	{
+		isWotrack = true;
+	}
+}]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="appname" id="240">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="241">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="242">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="where" id="735">
+            <property name="hidden">false</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">status</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">receipts</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">currencycode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">company</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">polinenum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">receiptscomplete</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">enterby</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">enterdate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">requestedby</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">gldebitacct</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">orderunit</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">orderqty</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">unitcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">linecostnet</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">tax1</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">linecostgross</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">matreccost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">matrecqty</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">servreccost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">servrecqty</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">invcount</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">invnetcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">ticketid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">wonum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">wostatus</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">approvedby</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">approveddate</property>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">revisionnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">irvserviceline</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">podesc</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ponum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">status</property>
+                </structure>
+                <structure>
+                    <property name="columnName">receipts</property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencycode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">company</property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">polinenum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">receiptscomplete</property>
+                </structure>
+                <structure>
+                    <property name="columnName">enterby</property>
+                </structure>
+                <structure>
+                    <property name="columnName">enterdate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">requestedby</property>
+                </structure>
+                <structure>
+                    <property name="columnName">gldebitacct</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderunit</property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecostnet</property>
+                </structure>
+                <structure>
+                    <property name="columnName">tax1</property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecostgross</property>
+                </structure>
+                <structure>
+                    <property name="columnName">matreccost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">matrecqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">servreccost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">servrecqty</property>
+                </structure>
+                <structure>
+                    <property name="columnName">invcount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">invnetcost</property>
+                </structure>
+                <structure>
+                    <property name="columnName">ticketid</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wonum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">wostatus</property>
+                </structure>
+                <structure>
+                    <property name="columnName">approvedby</property>
+                </structure>
+                <structure>
+                    <property name="columnName">approveddate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">revisionnum</property>
+                </structure>
+                <structure>
+                    <property name="columnName">irvserviceline</property>
+                </structure>
+                <structure>
+                    <property name="columnName">podesc</property>
+                    <text-property name="displayName">PO Description</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ponum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">status</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">receipts</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">currencycode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">company</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">polinenum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">receiptscomplete</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">enterby</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">enterdate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">requestedby</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">gldebitacct</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">orderunit</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">orderqty</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">unitcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">linecostnet</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">tax1</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">linecostgross</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">matreccost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">matrecqty</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">servreccost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">servrecqty</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">invcount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">invnetcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">ticketid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">wonum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">wostatus</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">approvedby</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">approveddate</property>
+                        <property name="dataType">date-time</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">revisionnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">irvserviceline</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">podesc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+sqlText = "select po.ponum, po.revisionnum, po.description podesc, po.status, po.receipts, po.currencycode, "
++ "vendor.company, vendor.name, "
++ "poline.polinenum,poline.description, case poline.receiptscomplete when 1 then 'COMPLETE' else 'NOT COMPLETE' end receiptscomplete, poline.enterby,poline.enterdate,poline.requestedby, poline.gldebitacct ,poline.orderunit ,poline.orderqty ,poline.unitcost,poline.linecost linecostnet,poline.tax1,poline.linecost + poline.tax1 linecostgross, "
++ "(select top 1 changeby from postatus where postatus.status = 'APPR' and postatus.ponum = po.ponum order by changedate) approvedby, " 
++ "(select top 1 changedate from postatus where postatus.status = 'APPR' and postatus.ponum = po.ponum order by changedate) approveddate, " 
++ "(select sum(linecost) from matrectrans where poline.ponum = matrectrans.ponum and poline.polinenum = matrectrans.polinenum and poline.revisionnum = matrectrans.porevisionnum) matreccost, "
++ "(select sum(quantity) from matrectrans where poline.ponum = matrectrans.ponum and poline.polinenum = matrectrans.polinenum and poline.revisionnum = matrectrans.porevisionnum) matrecqty, "
++ "(select sum(linecost) from servrectrans where poline.ponum = servrectrans.ponum and poline.polinenum = servrectrans.polinenum and poline.revisionnum = servrectrans.porevisionnum) servreccost, "
++ "(select sum(quantity) from servrectrans where poline.ponum = servrectrans.ponum and poline.polinenum = servrectrans.polinenum and poline.revisionnum = servrectrans.porevisionnum) servrecqty, "
++ "(select count(1) from invoice where invoice.documenttype = 'invoice' and po.ponum = invoice.ponum) invcount, "
++ "(select sum(linecost) from invoiceline where poline.ponum = invoiceline.ponum and poline.polinenum = invoiceline.polinenum) invnetcost, "
++ "sr.ticketid, "
++ "workorder.wonum, workorder.status wostatus, sr.irvserviceline "
++ "from po "
++ "left outer join companies vendor on po.vendor = vendor.company "
++ "left outer join poline  on po.ponum = poline.ponum and po.revisionnum = poline.revisionnum "
++ "left outer join workorder on poline.refwo = workorder.wonum "
++ "left outer join sr on sr.ticketid = workorder.origrecordid "
++ "where po.status not in ('WAPPR','PNDREV') "
++ "order by po.ponum desc ";
+
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+	
+row["ponum"] = maximoDataSet.getString("ponum");
+row["revisionnum"] = maximoDataSet.getString("revisionnum");
+row["status"] = maximoDataSet.getString("status");
+row["podesc"] = maximoDataSet.getString("podesc");
+row["receipts"] = maximoDataSet.getString("receipts");
+row["currencycode"] = maximoDataSet.getString("currencycode");
+row["company"] = maximoDataSet.getString("company");
+row["name"] = maximoDataSet.getString("name");
+row["polinenum"] = maximoDataSet.getString("polinenum");
+row["description"] = maximoDataSet.getString("description");
+row["receiptscomplete"] = maximoDataSet.getString("receiptscomplete");
+row["enterby"] = maximoDataSet.getString("enterby");
+row["approvedby"] = maximoDataSet.getString("approvedby");
+row["approveddate"] = maximoDataSet.getTimestamp("approveddate");
+row["enterdate"] = maximoDataSet.getTimestamp("enterdate");
+row["requestedby"] = maximoDataSet.getString("requestedby");
+row["gldebitacct"] = maximoDataSet.getString("gldebitacct");
+row["orderunit"] = maximoDataSet.getString("orderunit");
+row["orderqty"] = maximoDataSet.getDouble("orderqty");
+row["unitcost"] = maximoDataSet.getDouble("unitcost");
+row["linecostnet"] = maximoDataSet.getDouble("linecostnet");
+row["tax1"] = maximoDataSet.getDouble("tax1");
+row["linecostgross"] = maximoDataSet.getDouble("linecostgross");
+row["matreccost"] = maximoDataSet.getDouble("matreccost");
+row["matrecqty"] = maximoDataSet.getDouble("matrecqty");
+row["servreccost"] = maximoDataSet.getDouble("servreccost");
+row["servrecqty"] = maximoDataSet.getDouble("servrecqty");
+row["invcount"] = maximoDataSet.getDouble("invcount");
+row["invnetcost"] = maximoDataSet.getDouble("invnetcost");
+row["ticketid"] = maximoDataSet.getString("ticketid");
+row["wonum"] = maximoDataSet.getString("wonum");
+row["wostatus"] = maximoDataSet.getString("wostatus");
+row["irvserviceline"] = maximoDataSet.getString("irvserviceline");
+
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="NewSimpleMasterPage" id="606">
+            <property name="type">a4</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">5mm</property>
+            <property name="leftMargin">5mm</property>
+            <property name="bottomMargin">5mm</property>
+            <property name="rightMargin">5mm</property>
+            <property name="showHeaderOnFirst">true</property>
+            <property name="showFooterOnLast">true</property>
+            <property name="headerHeight">22mm</property>
+            <property name="footerHeight">22mm</property>
+            <page-header>
+                <grid id="999">
+                    <property name="width">100%</property>
+                    <column id="1000"/>
+                    <column id="1001"/>
+                    <column id="1002"/>
+                    <row id="1003">
+                        <cell id="1004">
+                            <text id="1192">
+                                <property name="fontSize">16pt</property>
+                                <property name="fontWeight">bold</property>
+                                <property name="color">#00ADE8</property>
+                                <property name="paddingTop">10pt</property>
+                                <property name="paddingLeft">10pt</property>
+                                <property name="contentType">auto</property>
+                                <text-property name="content"><![CDATA[Open PO Report]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1005"/>
+                        <cell id="1006">
+                            <property name="textAlign">right</property>
+                            <image id="1007">
+                                <property name="source">embed</property>
+                                <property name="imageName">Interservelogo.gif</property>
+                            </image>
+                        </cell>
+                    </row>
+                </grid>
+            </page-header>
+            <page-footer>
+                <grid id="1205">
+                    <property name="marginTop">20pt</property>
+                    <property name="width">100%</property>
+                    <column id="1206"/>
+                    <column id="1207"/>
+                    <column id="1208"/>
+                    <row id="1209">
+                        <cell id="1210">
+                            <text id="1213">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="1211"/>
+                        <cell id="1212">
+                            <property name="textAlign">right</property>
+                            <grid id="1194">
+                                <property name="textAlign">right</property>
+                                <property name="width">20mm</property>
+                                <column id="1195"/>
+                                <column id="1196"/>
+                                <column id="1197"/>
+                                <row id="1198">
+                                    <cell id="1199">
+                                        <auto-text id="1200">
+                                            <property name="type">page-number</property>
+                                        </auto-text>
+                                    </cell>
+                                    <cell id="1201">
+                                        <text id="1202">
+                                            <property name="contentType">plain</property>
+                                            <text-property name="content"><![CDATA[/]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="1203">
+                                        <auto-text id="1204">
+                                            <property name="type">total-page</property>
+                                        </auto-text>
+                                    </cell>
+                                </row>
+                            </grid>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="1008">
+            <property name="marginTop">0pt</property>
+            <property name="width">100%</property>
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ponum</property>
+                    <text-property name="displayName">ponum</text-property>
+                    <expression name="expression">dataSetRow["ponum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">status</property>
+                    <text-property name="displayName">status</text-property>
+                    <expression name="expression">dataSetRow["status"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">receipts</property>
+                    <text-property name="displayName">receipts</text-property>
+                    <expression name="expression">dataSetRow["receipts"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currencycode</property>
+                    <text-property name="displayName">currencycode</text-property>
+                    <expression name="expression">dataSetRow["currencycode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">company</property>
+                    <text-property name="displayName">company</text-property>
+                    <expression name="expression">dataSetRow["company"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">polinenum</property>
+                    <text-property name="displayName">polinenum</text-property>
+                    <expression name="expression">dataSetRow["polinenum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">receiptscomplete</property>
+                    <text-property name="displayName">receiptscomplete</text-property>
+                    <expression name="expression">dataSetRow["receiptscomplete"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">enterby</property>
+                    <text-property name="displayName">enterby</text-property>
+                    <expression name="expression">dataSetRow["enterby"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">enterdate</property>
+                    <text-property name="displayName">enterdate</text-property>
+                    <expression name="expression">dataSetRow["enterdate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">requestedby</property>
+                    <text-property name="displayName">requestedby</text-property>
+                    <expression name="expression">dataSetRow["requestedby"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">gldebitacct</property>
+                    <text-property name="displayName">gldebitacct</text-property>
+                    <expression name="expression">dataSetRow["gldebitacct"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderunit</property>
+                    <text-property name="displayName">orderunit</text-property>
+                    <expression name="expression">dataSetRow["orderunit"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderqty</property>
+                    <text-property name="displayName">orderqty</text-property>
+                    <expression name="expression">dataSetRow["orderqty"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">unitcost</property>
+                    <text-property name="displayName">unitcost</text-property>
+                    <expression name="expression">dataSetRow["unitcost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">linecostnet</property>
+                    <text-property name="displayName">linecostnet</text-property>
+                    <expression name="expression">dataSetRow["linecostnet"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">tax1</property>
+                    <text-property name="displayName">tax1</text-property>
+                    <expression name="expression">dataSetRow["tax1"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">linecostgross</property>
+                    <text-property name="displayName">linecostgross</text-property>
+                    <expression name="expression">dataSetRow["linecostgross"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">matreccost</property>
+                    <text-property name="displayName">matreccost</text-property>
+                    <expression name="expression">dataSetRow["matreccost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">matrecqty</property>
+                    <text-property name="displayName">matrecqty</text-property>
+                    <expression name="expression">dataSetRow["matrecqty"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">servreccost</property>
+                    <text-property name="displayName">servreccost</text-property>
+                    <expression name="expression">dataSetRow["servreccost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">servrecqty</property>
+                    <text-property name="displayName">servrecqty</text-property>
+                    <expression name="expression">dataSetRow["servrecqty"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">invcount</property>
+                    <text-property name="displayName">invcount</text-property>
+                    <expression name="expression">dataSetRow["invcount"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">invnetcost</property>
+                    <text-property name="displayName">invnetcost</text-property>
+                    <expression name="expression">dataSetRow["invnetcost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">ticketid</property>
+                    <text-property name="displayName">ticketid</text-property>
+                    <expression name="expression">dataSetRow["ticketid"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wonum</property>
+                    <text-property name="displayName">wonum</text-property>
+                    <expression name="expression">dataSetRow["wonum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">wostatus</property>
+                    <text-property name="displayName">wostatus</text-property>
+                    <expression name="expression">dataSetRow["wostatus"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalrec</property>
+                    <text-property name="displayName">totalrec</text-property>
+                    <expression name="expression">dataSetRow["matreccost"] +dataSetRow["servreccost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">approvedby</property>
+                    <expression name="expression">dataSetRow["approvedby"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">revisionnum</property>
+                    <text-property name="displayName">revisionnum</text-property>
+                    <expression name="expression">dataSetRow["revisionnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">approveddate</property>
+                    <text-property name="displayName">approveddate</text-property>
+                    <expression name="expression">dataSetRow["approveddate"]</expression>
+                    <property name="dataType">date-time</property>
+                </structure>
+                <structure>
+                    <property name="name">irvserviceline</property>
+                    <text-property name="displayName">irvserviceline</text-property>
+                    <expression name="expression">dataSetRow["irvserviceline"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">podesc</property>
+                    <text-property name="displayName">PO Description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["podesc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="1152"/>
+            <column id="1229"/>
+            <column id="1248"/>
+            <column id="1153"/>
+            <column id="1155"/>
+            <column id="1156"/>
+            <column id="1157"/>
+            <column id="1158"/>
+            <column id="1159"/>
+            <column id="1183"/>
+            <column id="1241"/>
+            <column id="1187"/>
+            <column id="1191"/>
+            <column id="1160"/>
+            <column id="1161"/>
+            <column id="1162"/>
+            <column id="1163"/>
+            <column id="1223"/>
+            <column id="1235"/>
+            <column id="1164"/>
+            <column id="1165"/>
+            <column id="1166"/>
+            <column id="1167"/>
+            <column id="1168"/>
+            <column id="1169"/>
+            <column id="1170"/>
+            <column id="1171"/>
+            <column id="1172"/>
+            <column id="1173"/>
+            <column id="1174"/>
+            <column id="1217"/>
+            <column id="1175"/>
+            <column id="1176"/>
+            <header>
+                <row id="1009">
+                    <cell id="1010">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1011">
+                            <text-property name="text">PO Number</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1226">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1230">
+                            <text-property name="text">Revision Num</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1245">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1249">
+                            <text-property name="text">PO Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1012">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1013">
+                            <text-property name="text">Status</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1016">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1021">
+                            <text-property name="text">Vendor Name</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1018">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1017">
+                            <text-property name="text">Currency</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1020">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1015">
+                            <text-property name="text">Receipts</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1022">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1023">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Line Number</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1024">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1025">
+                            <text-property name="text">Description</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1180">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1061">
+                            <text-property name="text">SR Number</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1238">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1243">
+                            <text-property name="text">Service Line</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1184">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1063">
+                            <text-property name="text">Work Order Number</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1188">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1065">
+                            <text-property name="text">Work Order Status</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1026">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1027">
+                            <text-property name="text">Receipts Complete</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1028">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1029">
+                            <text-property name="text">Raised By</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1030">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1031">
+                            <text-property name="text">Raised Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1032">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1033">
+                            <text-property name="text">Requested By</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1220">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1224">
+                            <text-property name="text">Approved By</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1232">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1236">
+                            <text-property name="text">Approved Date</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1034">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1035">
+                            <text-property name="text">GL Code</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1036">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1037">
+                            <text-property name="text">Order Unit </text-property>
+                        </label>
+                    </cell>
+                    <cell id="1038">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1039">
+                            <text-property name="text">Quantity</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1040">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1041">
+                            <text-property name="text">Unit Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1042">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1043">
+                            <text-property name="text">Net Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1044">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1045">
+                            <text-property name="text">Tax</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1046">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1047">
+                            <text-property name="text">Gross Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1048">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1049">
+                            <text-property name="text">Material Received Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1050">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1051">
+                            <text-property name="text">Material Received Quantity</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1052">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1053">
+                            <text-property name="text">Service Received Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1054">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1055">
+                            <text-property name="text">Service Received Quantity</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1214">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1219">
+                            <text-property name="text">Total Received Cost</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1056">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1057">
+                            <text-property name="text">Number of Invoices</text-property>
+                        </label>
+                    </cell>
+                    <cell id="1058">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">2px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <label id="1059">
+                            <text-property name="text">Invoice Cost</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="1066">
+                    <cell id="1067">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1068">
+                            <property name="resultSetColumn">ponum</property>
+                        </data>
+                    </cell>
+                    <cell id="1227">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1231">
+                            <property name="resultSetColumn">revisionnum</property>
+                        </data>
+                    </cell>
+                    <cell id="1246">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1250">
+                            <property name="resultSetColumn">podesc</property>
+                        </data>
+                    </cell>
+                    <cell id="1069">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1070">
+                            <property name="resultSetColumn">status</property>
+                        </data>
+                    </cell>
+                    <cell id="1073">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1078">
+                            <property name="resultSetColumn">name</property>
+                        </data>
+                    </cell>
+                    <cell id="1075">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1074">
+                            <property name="resultSetColumn">currencycode</property>
+                        </data>
+                    </cell>
+                    <cell id="1077">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1072">
+                            <property name="resultSetColumn">receipts</property>
+                        </data>
+                    </cell>
+                    <cell id="1079">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1080">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">polinenum</property>
+                        </data>
+                    </cell>
+                    <cell id="1081">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1082">
+                            <property name="resultSetColumn">description</property>
+                        </data>
+                    </cell>
+                    <cell id="1181">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1118">
+                            <property name="resultSetColumn">ticketid</property>
+                        </data>
+                    </cell>
+                    <cell id="1239">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1244">
+                            <property name="resultSetColumn">irvserviceline</property>
+                        </data>
+                    </cell>
+                    <cell id="1185">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1120">
+                            <property name="resultSetColumn">wonum</property>
+                        </data>
+                    </cell>
+                    <cell id="1189">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1122">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">wostatus</property>
+                        </data>
+                    </cell>
+                    <cell id="1083">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1084">
+                            <property name="resultSetColumn">receiptscomplete</property>
+                        </data>
+                    </cell>
+                    <cell id="1085">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1086">
+                            <property name="resultSetColumn">enterby</property>
+                        </data>
+                    </cell>
+                    <cell id="1087">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1088">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Short Date</property>
+                                <property name="pattern">Short Date</property>
+                            </structure>
+                            <property name="resultSetColumn">enterdate</property>
+                        </data>
+                    </cell>
+                    <cell id="1089">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1090">
+                            <property name="resultSetColumn">requestedby</property>
+                        </data>
+                    </cell>
+                    <cell id="1221">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1225">
+                            <property name="resultSetColumn">approvedby</property>
+                        </data>
+                    </cell>
+                    <cell id="1233">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1237">
+                            <structure name="dateTimeFormat">
+                                <property name="category">Custom</property>
+                                <property name="pattern">dd/MM/yyyy</property>
+                            </structure>
+                            <property name="resultSetColumn">approveddate</property>
+                        </data>
+                    </cell>
+                    <cell id="1091">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1092">
+                            <property name="resultSetColumn">gldebitacct</property>
+                        </data>
+                    </cell>
+                    <cell id="1093">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1094">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">orderunit</property>
+                        </data>
+                    </cell>
+                    <cell id="1095">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1096">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">orderqty</property>
+                        </data>
+                    </cell>
+                    <cell id="1097">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1098">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">unitcost</property>
+                        </data>
+                    </cell>
+                    <cell id="1099">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1100">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">linecostnet</property>
+                        </data>
+                    </cell>
+                    <cell id="1101">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1102">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">tax1</property>
+                        </data>
+                    </cell>
+                    <cell id="1103">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1104">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">linecostgross</property>
+                        </data>
+                    </cell>
+                    <cell id="1105">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1106">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">matreccost</property>
+                        </data>
+                    </cell>
+                    <cell id="1107">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1108">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">matrecqty</property>
+                        </data>
+                    </cell>
+                    <cell id="1109">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1110">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">servreccost</property>
+                        </data>
+                    </cell>
+                    <cell id="1111">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1112">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">servrecqty</property>
+                        </data>
+                    </cell>
+                    <cell id="1215">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">2px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1218">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">totalrec</property>
+                        </data>
+                    </cell>
+                    <cell id="1113">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1114">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">invcount</property>
+                        </data>
+                    </cell>
+                    <cell id="1115">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftColor">#000000</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightColor">#000000</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="1116">
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0.00</property>
+                            </structure>
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">invnetcost</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="1123">
+                    <cell id="1124"/>
+                    <cell id="1228"/>
+                    <cell id="1247"/>
+                    <cell id="1125"/>
+                    <cell id="1127"/>
+                    <cell id="1128"/>
+                    <cell id="1129"/>
+                    <cell id="1130"/>
+                    <cell id="1131"/>
+                    <cell id="1182"/>
+                    <cell id="1240"/>
+                    <cell id="1186"/>
+                    <cell id="1190"/>
+                    <cell id="1132"/>
+                    <cell id="1133"/>
+                    <cell id="1134"/>
+                    <cell id="1135"/>
+                    <cell id="1222"/>
+                    <cell id="1234"/>
+                    <cell id="1136"/>
+                    <cell id="1137"/>
+                    <cell id="1138"/>
+                    <cell id="1139"/>
+                    <cell id="1140"/>
+                    <cell id="1141"/>
+                    <cell id="1142"/>
+                    <cell id="1143"/>
+                    <cell id="1144"/>
+                    <cell id="1145"/>
+                    <cell id="1146"/>
+                    <cell id="1216"/>
+                    <cell id="1147"/>
+                    <cell id="1148"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">Interservelogo.gif</property>
+            <property name="data">
+                R0lGODlhoAA8AHAAACwAAAAAoAA8AIf///8Ard57hIQQrebWzt7e7/ecveZzreZKra3mEO/mEGvmEK3m
+                ECmtEO+tEGutEK2tEClzjOZKjK3mEM7mEErmEIzmEAitEM6tEEqtEIytEAhCxebWvRmcvRm95uZ7jKV7
+                72t73jrvlJx7nDp77617xWt73hB7nBDva5xaWu8Q3nsQ3jEQnHsQnDFaa1oQa94Qa1paKd5aKVoQKd4Q
+                KVpaaxkQa5wQaxlaKZxaKRkQKZwQKRl7Ws4x3lox3hAxnFoxnBDOlJx7zq3Oa5xaSloQSt4QSlpaCN5a
+                CFoQCN4QCFpaShkQSpwQShlaCJxaCBkQCJwQCBne795alHuclIxCreYZlOYAre97a2N7c4SllK1K7+ac
+                ta1z7+ala61alFqla4zW5q2c5q3WvUqcvUqcvXvWvXvmlO/mlGvmQu/mQmvmQq3mQinmlCl7ra2tQu+t
+                QmutQq2tQimtlO+tlGutlClaa5zma+/ma2vmaymta++ta2utayl7UpxKjObmlM7mlErmQs7mQkrmQozm
+                QgjmlAitQs6tQkqtQoytQgitlM6tlEqtlAhaSpzma87ma0rmawita86ta0qtawjeteYI7+bW7xmc7xkI
+                nKUIzq29vd61ta17Wu8x3nsxa94xa1ox3jF7Kd57KVoxKd4xKVoxnHsxnDF7axkxa5wxaxl7KZx7KRkx
+                KZwxKRl7SloxSt4xSlp7CN57CFoxCN4xCFp7ShkxSpwxShl7CJx7CBkxCJwxCBn3vRm9vRnvva17zu/W
+                70qc70qc73vW73spxeb37+8Ixeac5vcInMUI761jzub35q295q33vUq9vUq9vXv3vXuElGMAteYp7+b3
+                7xm97xkpnKUpzq1a73ta7zparTpaxXta7xBarRBaa84Q71oQ7xAQrVoQrRBa71pazjpajDpaxVpazhBa
+                jBBaSs4QzloQzhAQjFoQjBD3xeZK771Kzr1K75xKzpzOva3370q970q973v373spnMUp762c79aEjIR7
+                c5z3//8AlOb3/+YI/wABCBxIsKDBgwgTKlzIsKHDhxAjSiRYQNoVYgUmPiTABYsAAhpDihxJsmCBKyhR
+                SstYcuA/AvuyZNknIAvIljhz6hxI7EqAAD5RbujXkkCWmgKQ7qOys6nTkBuCAg165djIYjGT0kyaVMvT
+                r2AZnpQ6FagyohM3yaQ586iAmDfDyp0r8BjQuz6nXmEJMeY+v223xqVLOGxPvFKrPix2NGZjx1SKFZ48
+                t8AAvJh/NZSydqZfAVT+UR4tt19UzEE1K2T8FvDfwaRjLyZAQAqBYpIVHruc+KdVhP2OBo65SbbxvjJl
+                1pwyU8sm2AL79ewdgG/Bv4FnQj/O3aBarjUd0/90nGWTlIK/yKIcYPClVs8fu8tP2NjzTCqBW68tPtAD
+                1Z/+HJQFc9jZpJAHxygzwIIXiTYfYfgV6JpwfrGVBVMCFYAYMQK2ddQ8BxWwgTF63QUUhw/S1c97roWH
+                nXhvZcGFQP4FhdBwMw7Uz25U5dWbP9alCNZLmxRJxQdvcbWWVlslZSAAHniQkFHh5VYAMaj9hBJqewkp
+                WzEEbFJTfW3FGF9DtAGwoxVb9uYjZih6edw/83wwIVv8GVSAB3yJ1s8AV1iU5X9BDaCMnA9y5NlneRL0
+                izHrSSnQYYn1ZugvxwSJqHz/FBChcLk5WhZKLLlZqDKZbqrqQJpQQcUmaBH/1I+bKAKKWQDKaLrqrgid
+                NCpQdZU1wG+87lqAMgEYo5qeJhY60JUb6FqskAWk549eyxbEG16HTjvtsXkJCpQxvarn7bTpISYscCIu
+                eKi05z7oAaWDbkDQBpIatBtCdVKB3XnxjnZMm/USVMx6xGygzC8bTHdFQpzFFGrAhR1zrZsBEJPvs3ql
+                1CZ7CdmJIcWFefCTlnjZW66WGCuEn1ckEzbWryonlK6tbrq8D8wSbRczQ29OVQC8wZp6l0JagDZRmj9D
+                ZPGoxhA90GkYXwEyQnbmGNE+BDjYdEPpFir11IOa6HIWPB808UAEnBni2gVJxjRFCRVDdEbHbPxQp7Em
+                /9QPZmPzBGigbl59kJ2NAlAMFRn5VcDEbxVZZEFqHbWdFmAmlZsHlw170M3ZTr0nSgL9srDpv/1i+i98
+                HRDpQv/YFWjoCw2OGqTAJuTvBwZ/kAUA+CVH0DxjJsfXJvsIRFPiEjsm2cFSWhxn6QNkRIw0ofc01hVS
+                KpOSxtRbLWnDBfypWFO2Jmv1xw+HvE+eVNqUvFHlDaQcUiMzxldMBLlFpQDn2cDVBEiR6mSIdANhUwDs
+                ApTyAQBQhhNI+6B0BbTUqG844c22AoCzALhMaQNRy1/Yxr+BcMFtA/nAyAAgE57BpCYAmMfvHlgzzhGE
+                GNMDSs0GFgArFGM3FuSgQf+IgZaEEcQntCOJr1IyFXFFsCD4adQ/ZpKnKWYhVPiBzpOUNxOCRK4g55Pg
+                s66QLQgSBCi0m1UEq3XAjZlRJzNTD14UgqS0AaAmEzthXKiAQvcMBnlblBgYDRengVlnA0DJF6T0JpAG
+                Oool3jskUDBIEgYS7ldW+6DWBKI5gmghCyASCBds4jXgCWAeYdJEnWIShoHQBGADEeJAugUALGHqGJia
+                zrIuoytAZWuCPcGlMA/DyJHwsGo/+eAKASDIEApAEyZEIQv38QEuuMqa1oSmQHwXJKE8ayBWaxgOE5aw
+                ZQXzIN6j5QMHsqAqjNOdDSNWS35RNmclJGmbZKEASon/vFACj5QEmcIyD/IXWApkcKE7SRUYAqhi+idO
+                xejWSab3lbDhLksKGeUyY2IdtcRFjwXp4kJi4o6CyO4K6gTARRgaxgJOMFUUPMBc6IUZQT2RIP6yIx4J
+                ohZNOIiPg2HMQA3iL7jhZVkTZcgiEeITlhQSpXNBJKFQgzQQuvKKPH2mMwdTAGoyxHfQWWKXAKBQlkqL
+                GP74zdUGltKn2E5dgZIl1vaRz5jwMwutFIha8ioQoTIEPwbtT1BUltTa7YWSAEinQGq4Url0sGpnsyNH
+                eZoFbTJzi5xM3kizENiBHJMoB7tpQZZ6EP+wpwDEGhhFnXIwTGJGtALhYz6TUspR//oTpC6RCUP+AreB
+                0LNLf5tgQhpaLvZE61n+EO5TlqilywjKRu7b6Ay3OhAqRAM2ljtInmISWL7MaoES5N5BZHrQsR6EVAvl
+                mHkdlRP/wDUxsDXlJruK1RDaBC2f7Fr/BJA4xeXJdwYd2g2BRBSgkJcitCTtQbB0jOnNiox6kmcl8UIi
+                qVz0g5LNQkcrO5CkwcZfAvAOXwSwB4P2I1ve+w2WlAuAX+TrCkCy2RU2IGEsebAgx8WJAZ7LJZ/E13eJ
+                E6l9+TrKMPSNfo1iDEGQZJ1i1CyxY5WdOk9yw8MixGLrhfIVDEAQ/+gkPciELkL8tUyZhKofYrKsWvgD
+                JgBMsf8mmyhGP4ph1cuW9FnkmtpYl8g6ss6YIMRdWZA05JNM9eMkSRSJMqRRT6DE9y+86199RVk/gbTt
+                inRmSdLEI5O+vYYiwh3A9KjGQZSUMtAH+dtqa+mjwSFWJKS2VAAYPaXkAMw9z8wNVmaSmzfLRGsrWpSM
+                DFYTLoTqJIQVr3r18uSxYCQhxGjr0NSVaJFMpyyMhi9CqPQvAGjCLfxVXHJq4qCkvaWUMGnLChkjnOlC
+                eWFQLYh7fTK97WUSIQeQsGel8uQMUti1N26Pmwvyj4IX4x9WEk2nXKKJ/ro5TGFVeCnJqowDSOvEymBk
+                Af5x6FdDCV7HcnFT4jiAPqsJtY4GLpbHKRMQADs=
+            </property>
+        </structure>
+    </list-property>
+</report>

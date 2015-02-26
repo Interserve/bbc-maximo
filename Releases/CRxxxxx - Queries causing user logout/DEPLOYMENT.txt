@@ -1,0 +1,44 @@
+--------------------------------------------------------------------------------------
+CR-xxxxx Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_QUERY_BBC-SQL-D01_BBCMAXDEP_dbo_20141030112645.zip
+workman.xml
+remove queries.txt
+
+
+--------------------------------------------------------------------------------------
+Deploy Mobile Query Changes
+--------------------------------------------------------------------------------------
+
+1. Login to Maximo database as an admin user.
+2. Reun the sql script in remove queries.txt
+
+--------------------------------------------------------------------------------------
+Deploy Application Screen Changes
+--------------------------------------------------------------------------------------
+
+1. Login to Maximo as an admin user.
+2. Go To the Application Designer Application.
+3. Open the WORKMAN object.
+4. Import workman.xml 
+5. Save record. 
+
+
+--------------------------------------------------------------------------------------
+Deploy Query Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_QUERY_BBC-SQL-D01_BBCMAXDEP_dbo_20141030112645.zip package
+4. Deploy BBC_QUERY_BBC-SQL-D01_BBCMAXDEP_dbo_20141030112645.zip package
+
+
+
+
+
+
+
+

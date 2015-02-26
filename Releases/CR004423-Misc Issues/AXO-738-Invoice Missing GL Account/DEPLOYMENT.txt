@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------------
+AXO-738 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150209145610.zip
+BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150210142726.zip
+
+--------------------------------------------------------------------------------------
+Deploy Auto Script Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150209145610.zip package
+4. Deploy IDS_AUTOSCRIPT_BBC-SQL-D01_BBCMAXSIT_dbo_20150209145610.zip package
+
+--------------------------------------------------------------------------------------
+Deploy Escalation Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150210142726.zip package
+4. Deploy BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150210142726.zip package
+
+

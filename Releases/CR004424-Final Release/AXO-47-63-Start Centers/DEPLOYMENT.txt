@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------------
+AXO-47-63 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150223114917.zip
+BBC_STARTC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113559.zip
+
+--------------------------------------------------------------------------------------
+Deploy Query Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150223114917.zip package
+4. Deploy BBC_QUERY_BBC-SQL-D01_BBCMAXSIT_dbo_20150223114917.zip package
+
+
+--------------------------------------------------------------------------------------
+Deploy Start Center Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_STARTC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113559.zip package
+4. Deploy BBC_STARTC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113559.zip package
+

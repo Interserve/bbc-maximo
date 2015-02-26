@@ -1,0 +1,2249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.22" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 3.7.1.v20110905 Build &lt;3.7.1.v20110913-1734></property>
+    <simple-property-list name="includeResource">
+        <value>wotrack</value>
+    </simple-property-list>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage(Packages.com.ibm.tivoli.maximo.report.script);
+
+mxReportScriptContext = MXReportScriptContext.initialize(reportContext);
+//mxReportScriptContext.setDefaultLogLevel("DEBUG");
+mxReportScriptContext.setDefaultLogFile("./temp/wotrack.log");
+
+isChange = false;
+isActivity = false;
+isWotrack = false;
+
+if (!params["paramdelimiter"].value)
+{
+	params["paramdelimiter"] = "||";
+}
+if (!params["paramstring"].value &amp;&amp; params["appname"].value)
+{
+	params["paramstring"] = "appHierarchy="+params["appname"];
+}
+if (params["paramstring"].value)
+{
+ 	if (MXReportUtil.isInAppHierarchy("CHANGE", params["paramstring"], params["paramdelimiter"]))
+	{
+		isChange = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("ACTIVITY", params["paramstring"], params["paramdelimiter"]))
+	{
+		isActivity = true;
+	}
+	else if (MXReportUtil.isInAppHierarchy("WOTRACK", params["paramstring"], params["paramdelimiter"]))
+	{
+		isWotrack = true;
+	}
+}]]></method>
+    <method name="afterFactory"><![CDATA[MXReportScriptContext.close();]]></method>
+    <property name="theme">MaximoSystemLibrary.maximoTheme</property>
+    <property name="layoutPreference">auto layout</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">MaximoSystemLibrary.rptlibrary</property>
+            <property name="namespace">MaximoSystemLibrary</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="appname" id="240">
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramdelimiter" id="241">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="paramstring" id="242">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="where" id="735">
+            <property name="hidden">false</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1=1</value>
+            </simple-property-list>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="maximoDataSource" id="64" extends="MaximoSystemLibrary.maximoDataSource"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="dataSet" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">currencycode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">shiptoattn</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">orderdate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">shipto</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">vendor</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">ddescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">daddress1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">daddress2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">daddress3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">daddress4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">daddress5</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">vname</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">vaddress1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">vaddress2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">vaddress3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">vaddress4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">vaddress5</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">totalcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">revisionnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">bdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">baddress1</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">baddress2</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">baddress3</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">baddress4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">requireddate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">buydisplayname</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">vcontact</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">vemail</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">vphone</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">dpname</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">dpemail</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">dpphone</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">34</property>
+                    <property name="name">bpname</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">35</property>
+                    <property name="name">bpemail</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">36</property>
+                    <property name="name">bpphone</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">ponum</property>
+                    <text-property name="displayName">ponum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencycode</property>
+                    <text-property name="displayName">currencycode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">shiptoattn</property>
+                    <text-property name="displayName">shiptoattn</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderdate</property>
+                    <text-property name="displayName">orderdate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipto</property>
+                    <text-property name="displayName">shipto</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vendor</property>
+                    <text-property name="displayName">vendor</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ddescription</property>
+                    <text-property name="displayName">ddescription</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daddress1</property>
+                    <text-property name="displayName">daddress1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daddress2</property>
+                    <text-property name="displayName">daddress2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daddress3</property>
+                    <text-property name="displayName">daddress3</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daddress4</property>
+                    <text-property name="displayName">daddress4</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">daddress5</property>
+                    <text-property name="displayName">daddress5</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vname</property>
+                    <text-property name="displayName">vname</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vaddress1</property>
+                    <text-property name="displayName">vaddress1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vaddress2</property>
+                    <text-property name="displayName">vaddress2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vaddress3</property>
+                    <text-property name="displayName">vaddress3</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vaddress4</property>
+                    <text-property name="displayName">vaddress4</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vaddress5</property>
+                    <text-property name="displayName">vaddress5</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalcost</property>
+                    <text-property name="displayName">totalcost</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">revisionnum</property>
+                    <text-property name="displayName">revisionnum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bdescription</property>
+                    <text-property name="displayName">bdescription</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">baddress1</property>
+                    <text-property name="displayName">baddress1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">baddress2</property>
+                    <text-property name="displayName">baddress2</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">baddress3</property>
+                    <text-property name="displayName">baddress3</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">baddress4</property>
+                    <text-property name="displayName">baddress4</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">requireddate</property>
+                    <text-property name="displayName">requireddate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">buydisplayname</property>
+                    <text-property name="displayName">buydisplayname</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vcontact</property>
+                    <text-property name="displayName">vcontact</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vemail</property>
+                    <text-property name="displayName">vemail</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">vphone</property>
+                    <text-property name="displayName">vphone</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dpname</property>
+                    <text-property name="displayName">dpname</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dpemail</property>
+                    <text-property name="displayName">dpemail</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">dpphone</property>
+                    <text-property name="displayName">dpphone</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bpname</property>
+                    <text-property name="displayName">bpname</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bpemail</property>
+                    <text-property name="displayName">bpemail</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">bpphone</property>
+                    <text-property name="displayName">bpphone</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">ponum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">currencycode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">shiptoattn</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">orderdate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">shipto</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">vendor</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">ddescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">daddress1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">daddress2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">daddress3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">daddress4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">daddress5</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">vname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">vaddress1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">vaddress2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">vaddress3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">vaddress4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">vaddress5</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">totalcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">revisionnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">bdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">baddress1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">baddress2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">baddress3</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">baddress4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">requireddate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">buydisplayname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">vcontact</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">vemail</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">vphone</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">dpname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">dpemail</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">dpphone</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">34</property>
+                        <property name="name">bpname</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">35</property>
+                        <property name="name">bpemail</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">36</property>
+                        <property name="name">bpphone</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+
+sqlText = "select bperson.displayname bpname, bphone.phonenum bpphone, bemail.emailaddress bpemail, dperson.displayname dpname, dphone.phonenum dpphone, demail.emailaddress dpemail,compcontact.email vemail,companies.phone vphone,po.contact vcontact, person.displayname buydisplayname, convert(varchar(10),po.REQUIREDDATE,103)  requireddate, po.ponum,po.revisionnum,po.currencycode,po.shiptoattn,convert(varchar(10),po.orderdate,103) orderdate ,po.totalcost, "
++ " po.shipto,woserviceaddress.description ddescription,woserviceaddress.streetaddress daddress1,woserviceaddress.addressline2 daddress2,woserviceaddress.city daddress3,woserviceaddress.county daddress4,woserviceaddress.postalcode daddress5,"
++ " po.vendor,companies.name vname,companies.address1 vaddress1,companies.address2 vaddress2,companies.address3 vaddress3,companies.address4 vaddress4,companies.address5 vaddress5,"
++ " baddress.description bdescription, baddress.address1 baddress1,baddress.address2 baddress2,baddress.address3 baddress3,baddress.address4 baddress4, "
++ " saddress.description sdescription, saddress.address1 saddress1,saddress.address2 saddress2,saddress.address3 saddress3,saddress.address4 saddress4, "
++ " po.IRV_ADHOCDESC,po.IRV_ADHOCADDR1,po.IRV_ADHOCADDR2,po.IRV_ADHOCADDR3,po.IRV_ADHOCADDR4,po.IRV_ADHOCATTN"
++ " from po "
++ " left outer join  address as baddress on baddress.addresscode = po.billto"
++ " left outer join  address as saddress on saddress.addresscode = po.shipto"
++ " left outer join  companies on po.vendor = companies.company"
++ " left outer join  compcontact on compcontact.contact = companies.contact  and compcontact.company = companies.company "
++ " left outer join  person on po.PURCHASEAGENT = person.personid"
++ "  left outer join woserviceaddress on (select top 1 refwo from  poline where ponum = po.ponum and refwo is not null) = woserviceaddress.wonum "
++ " left outer join  person dperson on woserviceaddress.IRV_FMMANAGER = dperson.personid"
++ "  left outer join  phone dphone on dphone.personid = dperson.personid"
++ "    left outer join  email demail on demail.personid = dperson.personid"
++ " left outer join  person bperson on po.BILLTOATTN = bperson.personid"
++ "  left outer join  phone bphone on bphone.personid = bperson.personid"
++ "    left outer join  email bemail on bemail.personid = bperson.personid where po.status  in ('APPR') and " + params["where"] ;
+
+maximoDataSet.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+	
+row["ponum"] = maximoDataSet.getString("ponum");
+row["currencycode"] = maximoDataSet.getString("currencycode");
+row["shiptoattn"] = maximoDataSet.getString("shiptoattn");
+row["orderdate"] = maximoDataSet.getString("orderdate");
+row["shipto"] = maximoDataSet.getString("shipto");
+row["vendor"] = maximoDataSet.getString("vendor");
+row["ddescription"] = maximoDataSet.getString("ddescription");
+row["daddress1"] = maximoDataSet.getString("daddress1");
+row["daddress2"] = maximoDataSet.getString("daddress2");
+row["daddress3"] = maximoDataSet.getString("daddress3");
+row["daddress4"] = maximoDataSet.getString("daddress4");
+row["daddress5"] = maximoDataSet.getString("daddress5");
+row["vname"] = maximoDataSet.getString("vname");
+row["vemail"] = maximoDataSet.getString("vemail");
+row["vphone"] = maximoDataSet.getString("vphone");
+row["vcontact"] = maximoDataSet.getString("vcontact");
+row["vaddress1"] = maximoDataSet.getString("vaddress1");
+row["vaddress2"] = maximoDataSet.getString("vaddress2");
+row["vaddress3"] = maximoDataSet.getString("vaddress3");
+row["vaddress4"] = maximoDataSet.getString("vaddress4");
+row["vaddress5"] = maximoDataSet.getString("vaddress5");
+row["totalcost"] = maximoDataSet.getDouble("totalcost");
+row["revisionnum"] = maximoDataSet.getString("revisionnum");
+row["bdescription"] = maximoDataSet.getString("bdescription");
+row["baddress1"] = maximoDataSet.getString("baddress1");
+row["baddress2"] = maximoDataSet.getString("baddress2");
+row["baddress3"] = maximoDataSet.getString("baddress3");
+row["baddress4"] = maximoDataSet.getString("baddress4");
+
+
+row["ddescription"] = maximoDataSet.getString("sdescription");
+row["daddress1"] = maximoDataSet.getString("saddress1");
+row["daddress2"] = maximoDataSet.getString("saddress2");
+row["daddress3"] = maximoDataSet.getString("saddress3");
+row["daddress4"] = maximoDataSet.getString("saddress4");
+row["daddress5"] = null;
+row["dpname"] = maximoDataSet.getString("dpname");
+row["dpemail"] = maximoDataSet.getString("dpemail");
+row["dpphone"] = maximoDataSet.getString("dpphone");
+
+
+var ahaddress = maximoDataSet.getString("IRV_ADHOCDESC");
+if(ahaddress !=null){
+row["ddescription"] = maximoDataSet.getString("IRV_ADHOCDESC");
+row["daddress1"] = maximoDataSet.getString("IRV_ADHOCADDR1");
+row["daddress2"] = maximoDataSet.getString("IRV_ADHOCADDR2");
+row["daddress3"] = maximoDataSet.getString("IRV_ADHOCADDR3");
+row["daddress4"] = maximoDataSet.getString("IRV_ADHOCADDR4");
+row["daddress5"] = null;
+row["dpname"] = maximoDataSet.getString("IRV_ADHOCATTN");
+row["dpemail"] = null;
+row["dpphone"] = null;
+}
+
+row["requireddate"] = maximoDataSet.getString("requireddate");
+row["buydisplayname"] = maximoDataSet.getString("buydisplayname");
+
+row["bpname"] = maximoDataSet.getString("bpname");
+row["bpemail"] = maximoDataSet.getString("bpemail");
+row["bpphone"] = maximoDataSet.getString("bpphone");
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="polines" id="549">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">itemnum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">orderqty</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">orderunit</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">unitcost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">reqdeliverydate</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">linecost</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">catalogcode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">remark</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">tax1</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">polinenum</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">refwo</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">longdescription</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">itemnum</property>
+                    <text-property name="displayName">itemnum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderqty</property>
+                    <text-property name="displayName">orderqty</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">orderunit</property>
+                    <text-property name="displayName">orderunit</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <text-property name="displayName">description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitcost</property>
+                    <text-property name="displayName">unitcost</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">reqdeliverydate</property>
+                    <text-property name="displayName">reqdeliverydate</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">linecost</property>
+                    <text-property name="displayName">linecost</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">catalogcode</property>
+                    <text-property name="displayName">catalogcode</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">remark</property>
+                    <text-property name="displayName">remark</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">tax1</property>
+                    <text-property name="displayName">tax1</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">polinenum</property>
+                    <text-property name="displayName">polinenum</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">refwo</property>
+                    <text-property name="displayName">refwo</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">longdescription</property>
+                    <text-property name="displayName">longdescription</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">itemnum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">orderqty</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">orderunit</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">unitcost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">reqdeliverydate</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">linecost</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">catalogcode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">remark</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">tax1</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">polinenum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">refwo</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">longdescription</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[
+maximoDataSet = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+maximoDataSet.open();
+
+var sqlText = new String();
+
+
+sqlText = " select polinenum,refwo, itemnum,tax1,orderqty,orderunit,description,remark,unitcost,convert(varchar(10),reqdeliverydate,103) reqdeliverydate,linecost,catalogcode, isnull((select ldtext from longdescription where longdescription.ldownertable = 'POLINE' and longdescription.ldownercol = 'DESCRIPTION' and longdescription.ldkey = poline.polineid),'') as longdescription from poline where ponum = '" 
++ rows[0]["ponum"] + "'"
++ " and revisionnum = '"+ rows[0]["revisionnum"] + "'";
+maximoDataSet.setQuery(sqlText);
+
+]]></method>
+            <method name="fetch"><![CDATA[if (!maximoDataSet.fetch())
+	return (false);
+
+row["itemnum"] = maximoDataSet.getString("itemnum");
+row["orderqty"] = maximoDataSet.getString("orderqty");
+row["orderunit"] = maximoDataSet.getString("orderunit");
+row["description"] = maximoDataSet.getString("description");
+row["unitcost"] = maximoDataSet.getDouble("unitcost");
+row["reqdeliverydate"] = maximoDataSet.getString("reqdeliverydate");
+row["linecost"] = maximoDataSet.getDouble("linecost");
+row["catalogcode"] = maximoDataSet.getString("catalogcode");
+row["remark"] = maximoDataSet.getString("remark");
+row["tax1"] = maximoDataSet.getDouble("tax1");
+row["refwo"] = maximoDataSet.getString("refwo");
+row["polinenum"] = maximoDataSet.getString("polinenum");
+row["longdescription"] = maximoDataSet.getString("longdescription");
+
+return (true);]]></method>
+        </script-data-set>
+        <script-data-set name="poterms" id="764">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">termid</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">ldtext</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">ponum</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">termid</property>
+                    <text-property name="displayName">termid</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <text-property name="displayName">description</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ldtext</property>
+                    <text-property name="displayName">ldtext</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">ponum</property>
+                    <text-property name="displayName">ponum</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">termid</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">ldtext</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">ponum</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">maximoDataSource</property>
+            <method name="open"><![CDATA[poterms = MXReportDataSetProvider.create(this.getDataSource().getName(), this.getName());
+poterms.open();
+
+var sqlText = new String();
+
+// Add query to sqlText variable.
+sqlText = "select poterm.termid, poterm.description, poterm.ponum, longdescription.ldtext "
++ " from poterm inner join "
++ " term on "
++ "  poterm.orgid = term.orgid "
++ "  and poterm.termid = term.termid left outer join "
++ " longdescription on "
++ "  longdescription.ldownertable = 'TERM' "
++ "  and longdescription.ldownercol = 'DESCRIPTION' "
++ "  and term.termuid = longdescription.ldkey "
++ " where "
++ "  poterm.ponum = '" + rows[0]["ponum"] + "' "
++ " and poterm.sendtovendor = 1 "
++ " order by poterm.ponum, poterm.seqnum"
+;
+
+poterms.setQuery(sqlText);]]></method>
+            <method name="fetch"><![CDATA[if (!poterms.fetch())
+	return (false);
+
+// Add a line for each output column
+// The specific get method should match the data type of the output column.
+row["termid"] = poterms.getString("termid");	
+row["description"] = poterms.getString("description");	
+row["ldtext"] = poterms.getString("ldtext");	
+row["ponum"] = poterms.getString("ponum");	
+
+
+return (true);]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="NewSimpleMasterPage" id="606">
+            <property name="type">a4</property>
+            <property name="orientation">portrait</property>
+            <property name="topMargin">5mm</property>
+            <property name="leftMargin">5mm</property>
+            <property name="bottomMargin">5mm</property>
+            <property name="rightMargin">5mm</property>
+            <property name="showHeaderOnFirst">true</property>
+            <property name="showFooterOnLast">true</property>
+            <property name="headerHeight">0mm</property>
+            <property name="footerHeight">0mm</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="masterPage">NewSimpleMasterPage</property>
+            <property name="pageBreakAfter">always</property>
+            <property name="pageBreakBefore">always</property>
+            <property name="height">9.052083333333334in</property>
+            <property name="width">7.958333333333333in</property>
+            <property name="dataSet">dataSet</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">ponum</property>
+                    <expression name="expression">dataSetRow["ponum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currencycode</property>
+                    <expression name="expression">dataSetRow["currencycode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shiptoattn</property>
+                    <expression name="expression">dataSetRow["shiptoattn"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">orderdate</property>
+                    <expression name="expression">dataSetRow["orderdate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipto</property>
+                    <expression name="expression">dataSetRow["shipto"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vendor</property>
+                    <expression name="expression">dataSetRow["vendor"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">ddescription</property>
+                    <expression name="expression">dataSetRow["ddescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">daddress1</property>
+                    <expression name="expression">dataSetRow["daddress1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">daddress2</property>
+                    <expression name="expression">dataSetRow["daddress2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">daddress3</property>
+                    <expression name="expression">dataSetRow["daddress3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">daddress4</property>
+                    <expression name="expression">dataSetRow["daddress4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">daddress5</property>
+                    <expression name="expression">dataSetRow["daddress5"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vname</property>
+                    <expression name="expression">dataSetRow["vname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vaddress1</property>
+                    <expression name="expression">dataSetRow["vaddress1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vaddress2</property>
+                    <expression name="expression">dataSetRow["vaddress2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vaddress3</property>
+                    <expression name="expression">dataSetRow["vaddress3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vaddress4</property>
+                    <expression name="expression">dataSetRow["vaddress4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vaddress5</property>
+                    <expression name="expression">dataSetRow["vaddress5"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">revisionnum</property>
+                    <text-property name="displayName">revisionnum</text-property>
+                    <expression name="expression">dataSetRow["revisionnum"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bdescription</property>
+                    <text-property name="displayName">bdescription</text-property>
+                    <expression name="expression">dataSetRow["bdescription"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">baddress1</property>
+                    <text-property name="displayName">baddress1</text-property>
+                    <expression name="expression">dataSetRow["baddress1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">baddress2</property>
+                    <text-property name="displayName">baddress2</text-property>
+                    <expression name="expression">dataSetRow["baddress2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">baddress3</property>
+                    <text-property name="displayName">baddress3</text-property>
+                    <expression name="expression">dataSetRow["baddress3"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">baddress4</property>
+                    <text-property name="displayName">baddress4</text-property>
+                    <expression name="expression">dataSetRow["baddress4"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">totalcost</property>
+                    <expression name="expression">dataSetRow["totalcost"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">requireddate</property>
+                    <expression name="expression">dataSetRow["requireddate"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">buydisplayname</property>
+                    <expression name="expression">dataSetRow["buydisplayname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vcontact</property>
+                    <text-property name="displayName">vcontact</text-property>
+                    <expression name="expression">dataSetRow["vcontact"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vemail</property>
+                    <text-property name="displayName">vemail</text-property>
+                    <expression name="expression">dataSetRow["vemail"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">vphone</property>
+                    <text-property name="displayName">vphone</text-property>
+                    <expression name="expression">dataSetRow["vphone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dpname</property>
+                    <expression name="expression">dataSetRow["dpname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dpemail</property>
+                    <expression name="expression">dataSetRow["dpemail"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">dpphone</property>
+                    <expression name="expression">dataSetRow["dpphone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bpname</property>
+                    <text-property name="displayName">bpname</text-property>
+                    <expression name="expression">dataSetRow["bpname"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bpemail</property>
+                    <text-property name="displayName">bpemail</text-property>
+                    <expression name="expression">dataSetRow["bpemail"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bpphone</property>
+                    <text-property name="displayName">bpphone</text-property>
+                    <expression name="expression">dataSetRow["bpphone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="16">
+                <property name="width">7.958333333333333in</property>
+            </column>
+            <detail>
+                <row id="546">
+                    <property name="height">0.25in</property>
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="547">
+                        <grid id="864">
+                            <property name="height">1.4270833333333333in</property>
+                            <property name="width">7.791666666666667in</property>
+                            <column id="865">
+                                <property name="width">2.09375in</property>
+                            </column>
+                            <column id="866">
+                                <property name="width">2.65625in</property>
+                            </column>
+                            <column id="867">
+                                <property name="width">3.0416666666666665in</property>
+                            </column>
+                            <row id="868">
+                                <property name="height">0.3125in</property>
+                                <cell id="869">
+                                    <label id="880">
+                                        <property name="backgroundColor">#000000</property>
+                                        <property name="fontSize">14pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="color">#FFFFFF</property>
+                                        <property name="textAlign">center</property>
+                                        <text-property name="text">Purchase Order</text-property>
+                                    </label>
+                                </cell>
+                                <cell id="870"/>
+                                <cell id="871">
+                                    <property name="colSpan">1</property>
+                                    <property name="rowSpan">2</property>
+                                    <property name="textAlign">right</property>
+                                    <image id="999">
+                                        <property name="marginBottom">10pt</property>
+                                        <property name="height">112px</property>
+                                        <property name="width">264px</property>
+                                        <property name="source">embed</property>
+                                        <property name="imageName">interserve.PNG</property>
+                                    </image>
+                                </cell>
+                            </row>
+                            <row id="872">
+                                <cell id="873">
+                                    <text-data id="548">
+                                        <property name="fontSize">10pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <expression name="valueExpr">"Purchase Order: " +row["ponum"]</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="874"/>
+                            </row>
+                            <row id="876">
+                                <cell id="877">
+                                    <text-data id="863">
+                                        <property name="fontSize">10pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <expression name="valueExpr">"Order Date  " +row["orderdate"]</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                                <cell id="878"/>
+                                <cell id="879">
+                                    <text-data id="881">
+                                        <property name="fontSize">10pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">right</property>
+                                        <expression name="valueExpr">"Required Delivery Date:  " +row["requireddate"]</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                            <row id="887">
+                                <cell id="888">
+                                    <label id="891"/>
+                                </cell>
+                                <cell id="889"/>
+                                <cell id="890"/>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+                <row id="10">
+                    <property name="height">0.5208333333333334in</property>
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="11">
+                        <grid id="423">
+                            <property name="height">2.8125in</property>
+                            <property name="width">7.854166666666667in</property>
+                            <column id="424">
+                                <property name="width">2.03125in</property>
+                            </column>
+                            <column id="806">
+                                <property name="width">0.23958333333333334in</property>
+                            </column>
+                            <column id="425">
+                                <property name="width">2.0416666666666665in</property>
+                            </column>
+                            <column id="426">
+                                <property name="width">0.20833333333333334in</property>
+                            </column>
+                            <column id="427">
+                                <property name="width">1.6458333333333333in</property>
+                            </column>
+                            <row id="428">
+                                <property name="height">0.23958333333333334in</property>
+                                <cell id="429">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="color">#FFFFFF</property>
+                                    <text id="443">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="color">#000000</property>
+                                        <property name="textUnderline">underline</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Supplier:]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="804">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="color">#FFFFFF</property>
+                                </cell>
+                                <cell id="430">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="color">#FFFFFF</property>
+                                    <text id="444">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="color">#000000</property>
+                                        <property name="textUnderline">underline</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Deliver To:]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="431">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                </cell>
+                                <cell id="432">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="color">#FFFFFF</property>
+                                    <text id="807">
+                                        <property name="fontSize">9pt</property>
+                                        <property name="color">#000000</property>
+                                        <property name="textUnderline">underline</property>
+                                        <property name="contentType">auto</property>
+                                        <text-property name="content"><![CDATA[Invoice To:]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                            <row id="433">
+                                <property name="height">1.2604166666666667in</property>
+                                <cell id="434">
+                                    <grid id="691">
+                                        <property name="width">100%</property>
+                                        <column id="692"/>
+                                        <row id="693">
+                                            <cell id="694">
+                                                <data id="705">
+                                                    <property name="resultSetColumn">vname</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="695">
+                                            <cell id="696">
+                                                <data id="706">
+                                                    <property name="resultSetColumn">vaddress1</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="697">
+                                            <cell id="698">
+                                                <data id="707">
+                                                    <property name="resultSetColumn">vaddress2</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="699">
+                                            <cell id="700">
+                                                <data id="708">
+                                                    <property name="resultSetColumn">vaddress3</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="701">
+                                            <cell id="702">
+                                                <data id="709">
+                                                    <property name="resultSetColumn">vaddress4</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                                <cell id="805"/>
+                                <cell id="435">
+                                    <grid id="711">
+                                        <property name="width">100%</property>
+                                        <column id="712"/>
+                                        <row id="713">
+                                            <cell id="714">
+                                                <data id="725">
+                                                    <property name="resultSetColumn">ddescription</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="715">
+                                            <cell id="716">
+                                                <data id="726">
+                                                    <property name="resultSetColumn">daddress1</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="717">
+                                            <cell id="718">
+                                                <data id="727">
+                                                    <property name="resultSetColumn">daddress2</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="721">
+                                            <cell id="722">
+                                                <data id="967">
+                                                    <property name="resultSetColumn">daddress3</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="723">
+                                            <cell id="724">
+                                                <data id="968">
+                                                    <property name="resultSetColumn">daddress4</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="969">
+                                            <cell id="970">
+                                                <data id="971">
+                                                    <property name="resultSetColumn">daddress5</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                                <cell id="436"/>
+                                <cell id="437">
+                                    <grid id="673">
+                                        <property name="width">100%</property>
+                                        <column id="674"/>
+                                        <row id="738">
+                                            <cell id="739">
+                                                <data id="882">
+                                                    <property name="resultSetColumn">bdescription</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="675">
+                                            <cell id="676">
+                                                <data id="883">
+                                                    <property name="resultSetColumn">baddress1</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="678">
+                                            <cell id="679">
+                                                <data id="884">
+                                                    <property name="resultSetColumn">baddress2</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="681">
+                                            <cell id="682">
+                                                <data id="885">
+                                                    <property name="resultSetColumn">baddress3</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="684">
+                                            <cell id="685">
+                                                <data id="886">
+                                                    <property name="resultSetColumn">baddress4</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                            <row id="808">
+                                <property name="height">0.7916666666666666in</property>
+                                <cell id="809">
+                                    <grid id="814">
+                                        <property name="height">0.71875in</property>
+                                        <property name="width">2.5208333333333335in</property>
+                                        <column id="815">
+                                            <property name="width">0.9791666666666666in</property>
+                                        </column>
+                                        <column id="816"/>
+                                        <row id="817">
+                                            <cell id="818">
+                                                <label id="892">
+                                                    <text-property name="text">Supplier Contact:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="819">
+                                                <data id="948">
+                                                    <property name="resultSetColumn">vcontact</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="820">
+                                            <property name="height">0.23958333333333334in</property>
+                                            <cell id="821">
+                                                <label id="893">
+                                                    <text-property name="text">Telephone:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="822">
+                                                <data id="950">
+                                                    <property name="resultSetColumn">vphone</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="823">
+                                            <cell id="824">
+                                                <label id="894">
+                                                    <text-property name="text">Email:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="825">
+                                                <data id="949">
+                                                    <property name="resultSetColumn">vemail</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                                <cell id="810"/>
+                                <cell id="811">
+                                    <grid id="826">
+                                        <property name="height">0.71875in</property>
+                                        <property name="width">2.5416666666666665in</property>
+                                        <column id="827">
+                                            <property name="width">0.71875in</property>
+                                        </column>
+                                        <column id="828"/>
+                                        <row id="829">
+                                            <cell id="830">
+                                                <label id="895">
+                                                    <text-property name="text">Site Contact:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="831">
+                                                <data id="951">
+                                                    <property name="resultSetColumn">dpname</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="832">
+                                            <cell id="833">
+                                                <label id="896">
+                                                    <text-property name="text">Telephone:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="834">
+                                                <data id="953">
+                                                    <property name="resultSetColumn">dpphone</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="835">
+                                            <cell id="836">
+                                                <label id="897">
+                                                    <text-property name="text">Email:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="837">
+                                                <data id="952">
+                                                    <property name="resultSetColumn">dpemail</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                                <cell id="812"/>
+                                <cell id="813">
+                                    <grid id="838">
+                                        <property name="width">100%</property>
+                                        <column id="839">
+                                            <property name="width">0.59375in</property>
+                                        </column>
+                                        <column id="840"/>
+                                        <row id="841">
+                                            <cell id="842">
+                                                <label id="898">
+                                                    <text-property name="text">Queries:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="843">
+                                                <data id="954">
+                                                    <property name="resultSetColumn">bpname</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="844">
+                                            <cell id="845">
+                                                <label id="899">
+                                                    <text-property name="text">Telephone:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="846">
+                                                <data id="956">
+                                                    <property name="resultSetColumn">bpphone</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                        <row id="847">
+                                            <cell id="848">
+                                                <label id="900">
+                                                    <text-property name="text">Email:</text-property>
+                                                </label>
+                                            </cell>
+                                            <cell id="849">
+                                                <data id="955">
+                                                    <property name="resultSetColumn">bpemail</property>
+                                                </data>
+                                            </cell>
+                                        </row>
+                                    </grid>
+                                </cell>
+                            </row>
+                            <row id="850">
+                                <property name="height">0.28125in</property>
+                                <cell id="851">
+                                    <property name="colSpan">5</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="borderBottomColor">#000000</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">medium</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">medium</property>
+                                    <text-data id="901">
+                                        <property name="fontSize">9pt</property>
+                                        <expression name="valueExpr">"For queries relating to this order please contact the buyer: " +row["buydisplayname"]</expression>
+                                        <property name="contentType">html</property>
+                                    </text-data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+                <row id="12">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="13">
+                        <table id="550">
+                            <property name="height">0.7291666666666666in</property>
+                            <property name="width">7.885416666666667in</property>
+                            <property name="dataSet">polines</property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">itemnum</property>
+                                    <text-property name="displayName">itemnum</text-property>
+                                    <expression name="expression">dataSetRow["itemnum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">orderqty</property>
+                                    <text-property name="displayName">orderqty</text-property>
+                                    <expression name="expression">dataSetRow["orderqty"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">orderunit</property>
+                                    <text-property name="displayName">orderunit</text-property>
+                                    <expression name="expression">dataSetRow["orderunit"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">description</property>
+                                    <text-property name="displayName">description</text-property>
+                                    <expression name="expression">dataSetRow["description"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">unitcost</property>
+                                    <text-property name="displayName">unitcost</text-property>
+                                    <expression name="expression">dataSetRow["unitcost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">reqdeliverydate</property>
+                                    <text-property name="displayName">reqdeliverydate</text-property>
+                                    <expression name="expression">dataSetRow["reqdeliverydate"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">linecost</property>
+                                    <text-property name="displayName">linecost</text-property>
+                                    <expression name="expression">dataSetRow["linecost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">catalogcode</property>
+                                    <text-property name="displayName">catalogcode</text-property>
+                                    <expression name="expression">dataSetRow["catalogcode"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">Aggregation</property>
+                                    <property name="dataType">float</property>
+                                    <property name="aggregateFunction">SUM</property>
+                                    <list-property name="arguments">
+                                        <structure>
+                                            <property name="name">Expression</property>
+                                            <expression name="value">row["linecost"]</expression>
+                                        </structure>
+                                    </list-property>
+                                </structure>
+                                <structure>
+                                    <property name="name">remark</property>
+                                    <text-property name="displayName">remark</text-property>
+                                    <expression name="expression">dataSetRow["remark"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">tax1</property>
+                                    <text-property name="displayName">tax1</text-property>
+                                    <expression name="expression">dataSetRow["tax1"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">totalinctax</property>
+                                    <text-property name="displayName">totalinctax</text-property>
+                                    <expression name="expression">dataSetRow["linecost"] + dataSetRow["tax1"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">polinenum</property>
+                                    <text-property name="displayName">polinenum</text-property>
+                                    <expression name="expression">dataSetRow["polinenum"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">refwo</property>
+                                    <text-property name="displayName">refwo</text-property>
+                                    <expression name="expression">dataSetRow["refwo"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">longdescription</property>
+                                    <text-property name="displayName">longdescription</text-property>
+                                    <expression name="expression">dataSetRow["longdescription"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">totalcost</property>
+                                    <text-property name="displayName">totalcost</text-property>
+                                    <expression name="expression">row._outer["totalcost"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                                <structure>
+                                    <property name="name">totalcost1</property>
+                                    <text-property name="displayName">totalcost1</text-property>
+                                    <expression name="expression">row._outer["totalcost"]</expression>
+                                    <property name="dataType">decimal</property>
+                                </structure>
+                            </list-property>
+                            <column id="594">
+                                <property name="width">1.21875in</property>
+                            </column>
+                            <column id="595">
+                                <property name="width">3.34375in</property>
+                            </column>
+                            <column id="860">
+                                <property name="width">0.71875in</property>
+                            </column>
+                            <column id="597">
+                                <property name="width">0.5833333333333334in</property>
+                            </column>
+                            <column id="793">
+                                <property name="width">0.8958333333333334in</property>
+                            </column>
+                            <column id="599">
+                                <property name="width">0.8645833333333334in</property>
+                            </column>
+                            <header>
+                                <row id="551">
+                                    <property name="backgroundColor">#FFFFFF</property>
+                                    <property name="color">#000000</property>
+                                    <cell id="552">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="553">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <text-property name="text">Line</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="554">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="561">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <text-property name="text">Description</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="857">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="861">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Work Order</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="558">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="557">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Quantity</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="790">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="744">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Unit Price</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="562">
+                                        <property name="borderBottomColor">#000000</property>
+                                        <property name="borderBottomStyle">solid</property>
+                                        <property name="borderBottomWidth">medium</property>
+                                        <label id="563">
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Total (ex Tax)</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="568">
+                                    <property name="height">0.23958333333333334in</property>
+                                    <cell id="569">
+                                        <data id="856">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">polinenum</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="571">
+                                        <data id="576">
+                                            <property name="textAlign">left</property>
+                                            <property name="resultSetColumn">description</property>
+                                        </data>
+                                        <data id="966">
+                                            <property name="resultSetColumn">longdescription</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="858">
+                                        <data id="862">
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">refwo</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="575">
+                                        <data id="572">
+                                            <structure name="numberFormat">
+                                                <property name="category">Fixed</property>
+                                                <property name="pattern">Fixed</property>
+                                            </structure>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">orderqty</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="791">
+                                        <data id="578">
+                                            <structure name="numberFormat">
+                                                <property name="category">Fixed</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">unitcost</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="579">
+                                        <data id="582">
+                                            <structure name="numberFormat">
+                                                <property name="category">Fixed</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">linecost</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                            <footer>
+                                <row id="906">
+                                    <property name="height">0.25in</property>
+                                    <cell id="907">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="913"/>
+                                    </cell>
+                                </row>
+                                <row id="914">
+                                    <property name="height">0.25in</property>
+                                    <property name="borderTopColor">#000000</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">medium</property>
+                                    <cell id="915">
+                                        <property name="colSpan">6</property>
+                                        <property name="rowSpan">1</property>
+                                        <property name="borderTopColor">#000000</property>
+                                        <property name="borderTopStyle">solid</property>
+                                        <property name="borderTopWidth">medium</property>
+                                        <label id="921"/>
+                                    </cell>
+                                </row>
+                                <row id="585">
+                                    <property name="height">0.25in</property>
+                                    <cell id="586">
+                                        <property name="colSpan">4</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="905">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <text-property name="text">Authorising Signature:.........................................................</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="792">
+                                        <label id="904">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <text-property name="text">Order Total:</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="591">
+                                        <data id="604">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <structure name="numberFormat">
+                                                <property name="category">Currency</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <property name="textAlign">right</property>
+                                            <property name="resultSetColumn">Aggregation</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                                <row id="991">
+                                    <property name="height">0.25in</property>
+                                    <cell id="992"/>
+                                    <cell id="993">
+                                        <property name="colSpan">4</property>
+                                        <property name="rowSpan">1</property>
+                                        <label id="998">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">right</property>
+                                            <text-property name="text">Order Total(incl Tax):</text-property>
+                                        </label>
+                                    </cell>
+                                    <cell id="997">
+                                        <data id="990">
+                                            <property name="fontSize">9pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <structure name="numberFormat">
+                                                <property name="category">Currency</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <property name="textAlign">right</property>
+                                            <property name="resultSetColumn">totalcost1</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </footer>
+                        </table>
+                    </cell>
+                </row>
+                <row id="924">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="925">
+                        <label id="928"/>
+                    </cell>
+                </row>
+                <row id="926">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="927">
+                        <property name="borderBottomColor">#000000</property>
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">medium</property>
+                        <label id="929"/>
+                    </cell>
+                </row>
+                <row id="930">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="931"/>
+                </row>
+                <row id="933">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="934">
+                        <label id="932">
+                            <property name="fontSize">9pt</property>
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">Terms and conditions:</text-property>
+                        </label>
+                        <text id="935">
+                            <property name="fontSize">9pt</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[This purchase order is placed on our standard Terms and Conditions of Purchase (BBC) a copy of which is available on request from the Interserve BBC buying team Buying.BBC@interservefm.com . These conditions shall take precedence in the event of any conflict with other terms and conditions mentioned below.
+
+Also applicable are any terms and conditions stated in this order and those stated in any other agreements or framework agreements identified. Your acceptance of these Terms and Conditions may be by written acknowledgment or by delivery of the goods or services subsequent to this order.
+The Purchase order Number stated at the top of this document must be quoted on any documents including invoices when submitted.
+Interserve (Facilities Management) Ltd is registered in England, No: 3253304
+Registered Office: Capital Tower, 91 Waterloo Road, London. SE1 8RT
+
+Instruction to the subcontractor after attending the above:-
+1 – The Service Provider must notify the BBC Workplace Service Centre Team of its attendance, any outstanding actions that may require additional authorisation and completion of works by e mail to BBCWorkplace.Ops@interservefm.com or by phone on 01527 883405
+2 – Should the works not be covered by an annual contract previously issued to the Service Provider or the value of completing the works is to exceed the amount in this purchase order then the Service Provider is to submit any additional costs identified by the sub contractor over their original PO Value via email or phone call to the BBC Workplace Service Centre team on the contact details above together with the Work order and Purchase order number for reference.  The BBC Workplace Service Centre Team will obtain authorisation in line with the authority matrix.  Once approved the BBC Workplace Service Centre Team will reissue the PO at the agreed value, adding the additional costs as a separate PO line or advise the subcontractor the works are not approved and to stop work.
+General Information :-
+
+Failure to provide statements regarding the above may result in any payment for the being delayed
+
+Any invoice should clearly identify the official purchase order number and work order number when submitted.
+
+
+You are to contact the BBC workplace service centre team by email to BBCWorkplace.Ops@interservefm.com or by phone on 01527 883405 to confirm programme of works on receipt of this instruction. 
+
+ All work activities carried out on behalf of Interserve will be carried out in strict compliance with the health and safety at work act 1974, any statutory orders made there under or any amendment or re-enactment thereof, and including, but without limitation, any other prevailing legislation, approved codes of practice, health and safety executives guidance notes, British standards, main / management contractors policy and safety rules of legislation made from time to time governing the carrying out of work at the site to which this order relates.
+
+It will be the service provider’s responsibility to ensure they, and their servants or agents are aware of and comply with, their statutory responsibilities, and such other responsibilities as detailed above.
+
+Whereby complying with this order it will be necessary for you to have an element of site work then you are deemed to hold adequate policies of insurance as required by this agreement.
+
+You are to leave the site all clean and clear of your materials, plant etc., and where necessary clearing up accordingly.  If this is not done within seven working days of completion, Interserve reserve’s the right to carry out this work and charge the cost to service provider.
+
+By accepting this order it is deemed that you fully understand our requirements and that you have included for all equipment to fully comply with the specification indicated in our enquiry(s).  No further costs will be accepted if you have misinterpreted our requirements.
+
+Where possible we require , prior to starting works, notification of the names of all operatives who can be expected to attend during the works and also would advise that any operative will have to attend all necessary inductions prior to commencement where directed by the local management
+Payment terms are strictly 60 days from the end of the month. Failure to invoice within 6 months of completion of works, or the end of the month for Agency Staff, will result in non payment.
+]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+                <row id="945">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="946">
+                        <property name="borderTopColor">#000000</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">medium</property>
+                        <label id="947"/>
+                    </cell>
+                </row>
+                <row id="942">
+                    <property name="pageBreakAfter">auto</property>
+                    <cell id="943">
+                        <label id="944"/>
+                    </cell>
+                </row>
+                <row id="936">
+                    <property name="pageBreakAfter">always</property>
+                    <cell id="937">
+                        <text id="938">
+                            <property name="fontSize">9pt</property>
+                            <property name="textAlign">center</property>
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Registered Office: Capital Tower, 91 Waterloo Road, London, SE1 8RT
+
+Registered in England No. 3253304 VAT No. 52721856]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+    <list-property name="images">
+        <structure>
+            <property name="name">interserve.PNG</property>
+            <property name="type">image/png</property>
+            <property name="data">
+                iVBORw0KGgoAAAANSUhEUgAAASAAAAB7CAYAAADUvV0AAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+                YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABceSURBVHhe7Z3dqmVHEcfnHXwbn8V38BUMXijeRbwRBRFz
+                MyQiSLwZElAURcyNxguToMEMgjOIOhJxgsh2/zdTJ3VqV1dX9cdaa/epBYf5OOuju1bXb9VXdz865ZES
+                SAmkBHaSwKOdnpuPTQmkBFICpwRQDoKUQEpgNwkkgHYTfT44JZASSADlGEgJpAR2k0ACaDfR54NTAimB
+                BFCOgZRASmA3CSSAdhN9PjglkBJIAOUYSAmkBHaTQAJoN9HbD/7kk6enZ8+eH7R12ayUwBgJ7AKg55/+
+                9/TaL5+fHj3++PTojT9efr7807+envzpX6dPP/vfmJ7d4F0++PCj0+M33zp95bWv3v187evfOP3s5784
+                vXz58gZ7lE1OCdgS2BxAH//js3vgIQDd/XmG0vd+9/cHAyKABYB5/ZvfugceDiH8/dvf+W5CKLV5OQls
+                CiBYN9zquYLPK2vo8v+vQLScxF916MWLF6cfv/0TEzoSQjg/j5TAShLYFEA//MM/71wuEz4MRF/40Z9P
+                v3r672Vk3gIeDqJ0xZYZCtmRswQ2BdCXnvwlDCAeI0Ls6FYPcrWkVRP9N4LTeaQEVpHAzQCI3DIEqm/t
+                +O37vz8hmByFjXZ+AujW3n6215LApgBCpsvrelnn4T63kC2Du/X9H7wxBDwEo0zNp0KvJIFNAQTrZQSA
+                yBp6/9l/Dvsufv2b94ZZPQQfZMrySAmsJIFNAQTB9cSBNHi9/t7fDvU+EOuRtTwjXC/cA3VCeaQEVpLA
+                5gCC6/TFt5+Os4TOGTPc7wgBarhHtXqeVhghjpRHSmA1CWwOIBIgig2HuWOv6ob2TNfDOhkVaCZI4X5P
+                3nn3hFhSHimBFSWwG4AgTFgto10ygG3rA9ZJq2WjXYfAdVo8W7/FfN4eEtgVQNThS3CazQvrtYwwz2yr
+                A9MoRsEH4Mk0+1ZvLp9zBAkcAkAQBGJDo9L0ANgWEIpOpSiBKsFzBFXINuwhgcMAiDqPOM4oa2gmhJBm
+                77V8ELBOi2ePYZ/PPIoEDgeg0dbQDAiNiPnAdcsjJfDQJXBIAI2ODY2sFYLF0mP5YFmNrGZ+6GqX/ScJ
+                FAGE1C9SwFAYrnBwGxCzoB8U3eFrjh9YBlDQkWljZMpG1A2NmEOGfvWk2iHPPFICKYHPJaACaFRmB/Ai
+                QAFMPUtJwIrpyo6ds2xYDK3nkDCOWEKZVu+RfF67qgSuADQiuGopJiwoZI+gkFFLCXO/egLUWFuo9WiF
+                MiymdLlapZ7XrS6BewCChdLjYkQsAjoXVgVcE6+SIl3fU7zYMoG1Ne6T8FldfbJ/vRK4ByBMJ2iByKhr
+                YB15px60umQtldItrtds+CA2BphilUn0CTVUADN+kPlrAW3vYMrrUwJRCdwDUKubMQpA/D5Q+lrcpGV5
+                jyiAYJlF+zcaPgQagCVi/c0oQYgOsDw/JWBJ4FAWkKbotW1pohCKTlhtcb96igth2aBPgMeI7N/IEoRU
+                pZTAaAnsHgPyWhcWiNwQOmfCoispRgGEIH7kQHsARYACQfKuTB/fVYT9/QhLlURkkuc+HAlcZcFGVPl6
+                odJyHoFIviIPhFpqgSIuGEoOPAegg7aMnPtmgQtxojxSAkeUgFoHNDsV3wIeeY02j6o4q/5s+bTAh16Y
+                Z11ngNGqc9oaOhxI0bjXEQdqtmlNCVQroWet8DcCQrgHrA6u+FB0ygxB8fD3qNslXzWsoFp5Qmm5VBQ/
+                ym2oZ7hZ1j0TQGsq7wq9apoLBoVHbAQ/UDyaigFLoSVl3QujLbYtBoS0vgFMGnxgcY0IIo+AVTTwvsLA
+                zj7chgSaAOTpGhQW8SRtPlkvcLTrt9q2GP0i4ErwwNKCtTErmNwCI0Awj5TAUSUwDUCyw7CaoLAA0iy3
+                bk8hX7adHriqYwtsrq4ZMP9tT5nms9eXwGYA0uIqo2HUU3+D9qHgD64TYIK/e2NHlxhPIQW+1/+jTZl+
+                X1+Bb72HuwGICw6WkSfTVHPdvPPJ5EsDcEpuU02RLys47gQfuFeojKZgO6CZUzBuXSUfVvsPASASOWbH
+                t66zjGBw9HBPbD27MqVAbmRqRA+o8BwUK8JC611WJCqnPD8lMEsChwIQB1HUImpZ4jRUCFiIp/RAxboW
+                bSNXcNbLz/umBPaWwCEBREJBTMcTsG7JgLW4TlpGaRSA4ALCwkkXam+VyOdvKYFDAwiCQPYM1o1WCAg4
+                1WbMl4TZWqMjXbGelDtBJ12qLYd8PutIEjg8gLiwEGSmAsjoaopS6K2Wi6wqbtliOtfrOZIKZFv2lMBN
+                AWiUoC5LuzZmrhAM5gcC2R4rCOcAVt7U/qi+5n1SAkeWwOEBBPcEiks/I6YV9AAIwWF5oI0llw7g6ZkI
+                e+TBk21LCfRK4JAAgkJb6+NA2XvjJq0WkDWxkxYSo2VREzy9wzOvX10ChwEQzWL3uDMXeDQsLsZf5qgg
+                9OoDJPuXEpgpgd0BdLdcRUNMpmfNY88CZtJK6tnWZ+ZLzHunBG5VArsBCHGYEVXEPYKPPj9rdHqkndem
+                BK4lsDmAMEEyqvhWvKZnwiXcPq8rlvGcVJ+UwHgJbAYgWiunNfhbuq4HQBDnXbsKS2kAlr0B7/GvLe+Y
+                ElhDApsACK6LO7gciQWdoWEdEZeJdqegdD8sHg43ApWsA4oMA76SJBVUlv601peOPDPPTQkcWQLTAdS6
+                g6nHUqqtdYx7AHw960JLC6kHQJEtfnrXNjryoMu2pQRIAtMA5F7qImLxsHMRu6lVFUuI0do5KGYsWUe4
+                J+1Eqs2W7wEQpo9gXpu1bjZ+h3N6p5rkEE8J3IIEpgAIMZMpLtcrACH9XoMPfu+xoqLn9ACIDwhtlj+W
+                IMkjJfCQJDAcQIDPjLWRYY0gLlMDD728nukWFpRGAQhWjlzhMbqr6kMaqNnXNSUwFECj4QM3qzV+c4sA
+                yrjPmkqWvSpLYBiARsIHLlZv6rul0tnjjo2ygLQtsBNAqaoPTQJDAORdkqKm4LUF4CMvp2Wdnlr78PtR
+                ANIyYgmgyBvOc1eQwBAA9VY2I77TW1AoX0YCqH94wkpLKPbLMe8w0QXrUnRjt4nelxZacD5QCvCQLCBk
+                6hJAvSMxr7ck0GUBXeI+AeXl5wIQ3oxWyyvstcpK/XooAKIYVQKoZfTlNV4JdAGodUfQWgWzt/HWeQmg
+                PilSnVICqE+OebUtgS4AtRQbbjWrvNUyq133ECwg1CNRjVICKBEyUwJdAKopq/z9VvCBwKJt856/OoAw
+                CZZvgZQAmql+ee8uAHnX0oFyY1LqVgcyal6gRM87EoBodr2U6wcffnSZTwZLJjqrXlZojwAQ5rWhLbg3
+                frC9Uu+B+/H70JbegGft/hgfKHBFKCBSXW+1md8T9+2tY8Oz0EZ+3CVWCrv09sq05XrEcSFDWkUisgLF
+                xVBoeShd453pPkppvW2dVQV9pDogKBniNHxLasBGTnSFQno3bwQo5AaQUGwCh/yz9j7QnifvvHs15QTu
+                XU+GjWBDcJTPsObUlcasZ36h1l8oYOmeCFFEFZKeQfHVkq5JneIQ4LvIyL/Lchf8O3I+l0EpA45+e3ev
+                6QLQZcJnYSGvO8vi/PvRNT61gb86gAAUAgUBSIMPn2vmgRAptpyjpv0boLMO2R6cDzDIe3naRc/BPXkb
+                ASBAU2uftpoAT5rQziX3xm+wLESuqAmPQEt+REIPuCcvIUHfSxY9zyJ7ky4SiDVdKQGUy7LUb8+a7V0A
+                gnDMKRg7mYowXaOulff8UdZcayW0/NoTgEqWBldOa4mPkiKXYITnWcfjN9+6gAGg5G4cLDdpZcFlrB0a
+                YHHfEjSl64gvMr1jrhjasrxeYNwp/Xmcc0XVdMJjEWhtgVxK2Wb+zIsVZhgDsEq01T3RVvy/llAqbX/F
+                LT4uK63f0o2U77kbQLghbamDjtDPnruAdhVHVuqa9gIQFEpbRwgA8i50ZrkmmnViWUIWNHgWTZvhL+fB
+                AUhWrIrcTc16KrVRAogUTNvZRFrynjIR/pHTgHX1EaxsI3WxRBSAWPFMaZ2UjAFtM00N+NzyKlkvHOSa
+                nDSLyoqHDQFQ7eu19e9XBFAJEAAQ/Q5WBykyFFBbc0gL0OL/PG4XP6cEDJ5Fs9w02TZYMqWj1HcLmryf
+                vGC2lAzhY6YGIA4s64MkgWK5JCUXyhrLmmJr1r83DnUHFwOWd5aScY5MTpky2hoOWzzP6w973S5+3p4W
+                kHRdAARSQs260dwdzXWilRoBMw0MWhC69B55Fs2K72iuU8lF1NZO4jDkECa3j7ePuwwlV4hDpQagkgsi
+                ZaK5TqXqfyuQjfGHNt0b14X10DWLyQsgsl5KoOQrTFgyikBwSQtoRQBhcJdcLYDJq7wAjHVIqyKShpc1
+                RJZbpS1HwjN6so2lGBd38QhqEnx8PFjuAAHDUq577lplUwRtSRgrJlKK9fBr6BwrTiUtL0/8CfImC6h0
+                Po8TWYklzQ0rQW1JAEXqk6JW0F4WEClkKQ5UgooWXLaC0T0A4lCBO2gdmttnwREwk25iLRNHz+fv2GoT
+                AcMCEIdKLbaiKSLGZunQlhFuGW/yA1yz6Kg95O5pVhrvi9UHTeYX+RdgvSSAolCJnN8yILQBNyoLBqWs
+                LWAvoWUFkHsARJkvtMmzvKw3fU7yk23zpvD5+7UmQBMALIXlgdpahgft1saWZT1IeHgzcnyMybhRDZR0
+                LZ5dggu3zjxFxVpAXXMFE0DB2fx7A0jGQzxWgIy3WK5OK4CkheJx3TQAWVBpbRuHQC0eAjejBCBpoXiq
+                nTUAWVCRAKq1V/u48UwVnu+xWC6wPFspJbhw98vj0mlhEE2uywFo5jSMI1RCSwBZ2SManPKaGQCCVcWB
+                4kk2aO5kJBvmgZy0QmruCBSndI5UbE8fNUvAsiBGAEjTgVpbKVOowVEuu+MpLNYApH28lwNQrbIz4m5p
+                5x7NArJgQoNOBnxnAIgHiREUL03f4P8f3ZpohAWEL7nlhtG0BE1heaaKLCVrGgN+pxX4WWNoBIDImolY
+                fhTb0uAis1q1Ppf6rcWBEkA37oJ5ACTjTTMAFC1ktOqOSl/rEQCqTYzGB6zk9gzLrhrZs1EAkvepxasu
+                MZ5Cu1rX/dI+4BL+ywFoZhHiEV2wowCI1yjBsgEsWn9GA0izQlqCu1yhaGoDr/6P/L3Ux1EAknpQm5eF
+                OFEpWM3b1NtvGTdLAKUFdE8XWqwMGYD2QLEWk9B+39I23Ke0PngEQjKuUrMoWvqHa0YBKBKIrmX/OHhr
+                MbRov5cDkHeJkNZY0C3GgGa7YPL+3uBwdLC2AsianOyFkIwttmSnPP0dBaBIIJr6pvVJZv4SQJW3OMxP
+                L1hGCaDrF3B0ANUyox4ISYvi6ADSAtGlsgFy1zTVkuBNACWA7qW7Pe7ObAtoxiqKI10w3KsWSK3V9MiY
+                yi0AyFvUSLGrBJDHRq2c07JQfsQdSwvo+gXcAoAuVpC1eF5l4bxbBJBsc6n+yCpAnO16LhcDisCk5dwE
+                0G0CCK3WJofyMWBVDN8igKTbqI1dKjIsVTfP7ncCKLNg3VmwW7CAqJM1V6yU3ZqtiNS+UUFo3M8TiLYK
+                EHEP2e+MARkuWM9OrV5rKC2g27WAqOXmtt2FYrxbBJAnEA0ga6tEkqwSQIG40OxpGFmIqL8MaQF5ZsIH
+                Xuvdqa1pePksbe1l/gHSsmJSET2Zs5Y+jrSA8PxaIBrwsWbLJ4ACbzEBpAtr6yyYJzMXeK3DAYQbWhDS
+                FHK2Is5wwXBPWRfHA9FU42MVVUqdqlVUR9/rUjGg2dMw0gLyWUCeGfrRgYrzR1lA9GwrMybbF53a0NI/
+                zWLpTffLwDsPIVCQ2nqGBNCoEATJJwGUQeh7utKi5HK2vbX7RqtizgAQ7lmymqVSymrq0Yo4ywK6iouy
+                GJdVgEjtuZJPZRna6PtdCkC1DIc30GydN2rgta6IGFnbhwbDbBdM60t0INL5s1ZrtNqjTd+RaWkNVK19
+                tCyO0TEgtFGOZ1pywypApL5piR3PekCabNDvpWfDz56GkS6YrnLa+s6t88HkRob8iS3WmQcSWrpapps1
+                ANWqp0vPRuGfd8mPXhdMc+sIrhjPnrS6BFhrAB51VjLetJQFlADSh/xsCwhPlev71HZO1VpKICvtptEC
+                ICiwx2qVqXl1+VDhrnuUV/aTQFZaFG2GBSQtPLS7VoDI2x3Z36wEXYK8BOpSAKruUx+M96yyIuIWAJKr
+                G9a2/9EGKqBlXdcKIKvOhdrhyXLJaT6e+8p+AgbWdTMApAWiKaZlrQ5ZiktBzzzX8b7T86Q81gLQAMDU
+                4kSer6nH7F8pBoT+8h0xyBqKumFwv6ztfFoBhHdaO+S0Bc260SzsiItEe4pFdkiN3L/URy0QXStA5PfS
+                YmRRNwzulzbVJQEUhFYCSB/m2u6lkWwYZdKsIsYeANUU2bPshFbmERkPZAXM3hVDe0PywworzFvTI+GM
+                e0WsP5KtNhl2GQBtUYSYQeiyHVHaX97KatHd+I6qozdNpHFR+2LL8aOdXxpjnm1q+I6qkX3BauCsWXZF
+                N+oMEe+qjqX1lLzXk+uq9SUBlBbQvTHcYmXQDbS96/F/gJN1kPtW2+OspW3W15e3ybvshBpnrCzlwTNR
+                tT26ZsSA8HzNjYpk8Uq7DdfucVcas/rOqJqZWIvntPw+YnJbSif30ULcxBMzmV0H5L2/luWSGyBSLMiC
+                EL+mNoesB0A1xZeFhqV3V6o1w1deU0ZYPvyamtUwC0BXS5EECwqLy9oaJQW838vvDb/FNIyRLpgWM/G4
+                K15AcAWSAW8r0OvZeRXxGs1aKblhBCLABm3BD+4hM2e1LaZ7AIR3V9sPjD5IFqxqrj4UDefgB0ovM2e1
+                7NEsAMlAdPRDWlvWFv2GEUD9lv0oWUrLuGArAMgzibMFQLAseJ2OFRzWsnN8u2QKFpcg1ro/mGf+WC+A
+                vMHfqJXitaQ9Qd9ZAMIHqXd3i9aZBhbslgFQq3C8g4fOi345Sqa8ti2xZZnQfWS625Np4ruWEohKxX5y
+                ix06H8/hzy65SxrArE0I6Xc16wf9lzEmD7C5xVKybOTOD7WpBjUrqDSmaveVkPBWKrcEoluC2zUrqNRv
+                61nLAGiLKuhRLpi0SLiCWnGQknLXrtGCw7A4SkqvwZG3EfcrAaxUE2RByAMSzWW1pm2QUkpYaBkrbj1b
+                +7ZzRTcXNVMSG56qadWKN2IsXvDQeTwQXXMFS/eOehrWWkMX4EY7cdTzbwFAEetABqQ9VoR8N55rNOWX
+                s9vlfWrBYsCpBjG6Zy3z5ZVZKYB/te6PUGgeXK3tG8/lW1vUzLvWNO7ptaharBbeZgpE1wLyNR336hqe
+                UwPdMgDaYhpGrwXkVSYtI+aBySgA4T4lgHhiNbjeAyE8w7KkcB+vzKwMogaLS1qZ75Jx/nstpSzl64GQ
+                Rwm3AhAFoj2xKAtC6HcNQui3R57rAChYzxON/YyIAUHZKAtU+1MqZu18TQE915TcMGS0OITg7nhcJTlw
+                cY3MdtG9avAhkHn64bmXlpXCe4VC1r7UlkLCLbnaDuoMNI/bhfvi2ZQ5s/7saSO1H/2tFWXWLCD6vSrP
+                c7/h6nnbugSAZBCxFS6e60YFob0vee/zACIAwKPgVlvpPp5ap9l9RjCVFH3ks/DFx309X/6Rz43cC23z
+                wsF73x55LgEgrwlL81/g9+Ma+SKohoFmLM+cDe99uXleSmBlCSwPIFoEqeWrBLJLGD00C2jlwZ99218C
+                SwBIlpnD0oGV46m78L4C8ncTQF6J5XkpgboElgDQpTbhHPxCMLHF0qmL6fMzelOhkWfluSmB1SWwBIBg
+                6YwOrK3+4rN/KYEjSGAJAB1BkNmGlEBKIC6BBFBcZnlFSiAlMEgCCaBBgszbpARSAnEJJIDiMssrUgIp
+                gUES+D/yp6XJ+5gIbgAAAABJRU5ErkJggg==
+            </property>
+        </structure>
+    </list-property>
+</report>

@@ -1,0 +1,1 @@
+delete from query where app = 'WORKMAN'

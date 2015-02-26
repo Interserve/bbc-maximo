@@ -1,0 +1,19 @@
+--------------------------------------------------------------------------------------
+Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+none
+
+
+--------------------------------------------------------------------------------------
+Remove Automation Script 
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Automation Application.
+3. Open the INV_CAN script.
+4. From the select action menu choose delete script.
+
+
+

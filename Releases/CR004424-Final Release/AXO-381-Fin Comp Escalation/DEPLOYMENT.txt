@@ -1,0 +1,16 @@
+--------------------------------------------------------------------------------------
+AXO-381 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113036.zip
+
+--------------------------------------------------------------------------------------
+Deploy Escalation Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113036.zip package
+4. Deploy BBC_ESC_BBC-SQL-D01_BBCMAXSIT_dbo_20150223113036.zip package
+
+

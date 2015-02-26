@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------------
+AXO-37 Deployment Instructions
+--------------------------------------------------------------------------------------
+
+Supporting Files:
+
+BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20150223131237.zip
+
+--------------------------------------------------------------------------------------
+Deploy Database Changes
+--------------------------------------------------------------------------------------
+1. Login to Maximo as an admin user.
+2. Go To the Migration Manager Application.
+3. Upload BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20150223131237.zip package
+4. Deploy BBC_DATACONF_BBC-SQL-D01_BBCMAXSIT_dbo_20150223131237.zip package
+5. Got to the Database Configuration Application.
+6. Apply Database Changes.
+
